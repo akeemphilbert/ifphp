@@ -6,9 +6,10 @@
  * 
  * @version 0.1
  * @author Albert Rosa <rosalbert@gmail.com>
+ * @author Akeem Philbert <akeemphilbert@gmail.com>
  * @package Ifphp
  * @subpackage models
- * @copyright 2009 Ifphp
+ * @copyright (c) 2009 Ifphp
  */
 
 
@@ -23,6 +24,11 @@ require_once 'Ifphp/core/AbstractModel.php';
 class Categories extends AbstractModel{
 	protected $_name = 'categories';
 	
+	/**
+	 * Get all available categories
+	 * 
+	 * @return Zend_Db_Table_Rowset
+	 */
 	public function getAll()
 	{
 		$select = $this->select();
