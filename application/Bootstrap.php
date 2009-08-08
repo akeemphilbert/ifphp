@@ -102,11 +102,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     	$fbug = new Zend_Log_Writer_Firebug();
     	
     	$logger = new Zend_Log($writer);
+//    	$logger = new Zend_Log($fbug);
     	$logger->addWriter($fbug);
     	
     	Zend_Registry::set('logger',$logger);
-    	
-    	
     		
     }
     

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<?= $this->headTitle('If PHP');?>
+<!-- Framework CSS -->
+<?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/fancy-type/screen.css','screen, projection'); ?>
+<?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/blueprint/ie.css','screen, projection',	'lt IE 8'); ?>
+<?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/print.css',	'print'); ?>
+<?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/screen.css','screen, projection'); ?>
+<?= $this->headLink() ?>
+<?= $this->headScript() ?>
+</head>
+<body>
+<div class="container">
+  <h1><a href="/">if(Php){</a></h1>
+  <?= $this->partial('/partials/html/search.phtml')?>
+  <hr />
+  <h2 class="alt">PHP News Aggregator | Aggregating 1000 feeds</h2>
+  <hr />
+  <?= $this->partial('/partials/html/navigation.phtml')?>
+  <hr />
+  <hr class="space" />
+  <div class="content colborder">
+  <?php /*?>  
+<? */?>
+<?= $this->layout()->content ?>
+</div>
+  <div class="sidebar last">
+  	<?= $this->action('categories','module') ?>
+    <hr />
+    <?= $this->action('smart-categories','module') ?>    
+    <hr />
+    <?= $this->action('recent-blog-update','module') ?>  	
+    <hr />
+    <?= $this->action('popular-blog','module') ?>
+    
+    <hr />
+    <?= $this->action('languages','module') ?>
+        
+  </div>
+    <?= $this->partial('/partials/html/footer.phtml') ?>    
+</div>
+</body>
+</html>

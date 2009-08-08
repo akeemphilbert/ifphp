@@ -5,7 +5,7 @@
  * to do with the FeedType
  * 
  * @version 0.1
- * @author Albert Rosa <rosalbert@gmail.com>
+ * @author 
  * @package Ifphp
  * @subpackage models
  * @copyright 2009 Ifphp
