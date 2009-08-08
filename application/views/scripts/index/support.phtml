@@ -1,0 +1,14 @@
+<?php $this->headTitle('Support'); ?>
+<h2>Support</h2>
+<?php if($this->supports):?>
+	<p>Support for : <?= $this->term?></p>
+	<ul>
+		<?php foreach($this->supports as $support):?>
+		<li><span class="bold"><?= $support->title?></span>:<br/>
+			<?= $support->content?>
+		</li>
+		<?php endforeach;?>
+	</ul>
+<?php else:?>
+
+<?php endif;?>

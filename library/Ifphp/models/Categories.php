@@ -23,4 +23,10 @@ require_once 'Ifphp/core/AbstractModel.php';
 class Categories extends AbstractModel{
 	protected $_name = 'categories';
 	
+	public function getAll()
+	{
+		$select = $this->select();
+		return $this->fetchAll($select);
+	}
+	
 }
