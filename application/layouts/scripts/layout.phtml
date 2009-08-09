@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<?= $this->headTitle('<?= if(PHP);?>');?>
+<?php $this->headTitle()->setSeparator(' - ')?>
+<?= $this->headTitle('IFPHP');?>
 <!-- Framework CSS -->
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/fancy-type/screen.css','screen, projection'); ?>
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/blueprint/ie.css','screen, projection',	'lt IE 8'); ?>
