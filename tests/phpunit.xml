@@ -1,6 +1,6 @@
-<phpunit boostrap="" colors="true">
+<phpunit bootstrap="./application/bootstrap.php" colors="true">
 	<testsuite name="Ifphp">
-		<directory>/</directory>
+		<directory>./</directory>
 	</testsuite>
 	
 	<filter>
@@ -14,5 +14,6 @@
 	
 	<logging>
 		<log type="coverage-html" target="./log/report" charset="UTF-8" yui="true" highlight="true" />
+		<log type="testdox" target="./log/tesetdox.html" />
 	</logging>
 </phpunit>
