@@ -5,7 +5,7 @@
  * to do with the Languages
  * 
  * @version 0.1
- * @author Albert Rosa <rosalbert@gmail.com>
+ * @author 
  * @author Akeem Philbert <akeemphilbert@gmail.com>
  * @package Ifphp
  * @subpackage models
