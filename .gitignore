@@ -1,5 +1,7 @@
 *.buildpath
 *.project
 .settings/
-.tmp/
+tmp/
 *.orig
+tests/log/
+data/

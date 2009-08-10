@@ -1,0 +1,11 @@
+<?php foreach ($this->messages as $message):?>
+<div class="notice"><?=$message ?></div>
+<?php endforeach;?>
+<h1><?=$this->feed->title?></h1>
+<div>
+<ul>
+<?php foreach ($this->posts as $post):?>
+<li><a href="<?=$post->link?>"><?=$post->title ?></a></li>
+<?php endforeach;?>
+</ul>
+</div>

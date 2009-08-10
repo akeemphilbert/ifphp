@@ -26,15 +26,26 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	 * @see library/Zend/Application/Bootstrap/Zend_Application_Bootstrap_Bootstrap#run()
 	 */
 	public function run(){
-		
 		$this->setupCache();
+		
+		parent::run();
+			
+	}
+	
+	/**
+	 * Run custom setup functions. This was abstracted from run for Unit Testing purposes
+	 * 
+	 * @return void
+	 */
+	protected function _bootstrap($resource=null)
+	{
+		parent::_bootstrap($resource);
+		
 		$this->setUpLocale();	
 		$this->setupRoutes();	
 		$this->setupLoggers();
 		$this->setupIdentity();
 		$this->setupViewHelpers();		
-		parent::run();
-			
 	}
 	
 	/**

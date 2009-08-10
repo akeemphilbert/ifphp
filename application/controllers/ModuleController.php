@@ -13,7 +13,9 @@ class ModuleController extends Zend_Controller_Action
 	
 	public function categoriesAction()
 	{
-		
+		//setup the available categories
+    	$categories = new Categories();
+    	$this->view->categories = $categories->getAll();
 	}
 	
 	public function smartCategoriesAction()
