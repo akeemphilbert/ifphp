@@ -31,6 +31,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->setUpLocale();	
 		$this->setupRoutes();	
 		$this->setupLoggers();
+		$this->setupIdentity();
 		parent::run();
 			
 	}
@@ -107,6 +108,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     	
     	Zend_Registry::set('logger',$logger);
     		
+    }
+    
+    /**
+     * Setup the user session
+     * 
+     * @return void
+     */
+    public function setupIdentity()
+    {
+    	Zend_Session::start();
     }
     
     

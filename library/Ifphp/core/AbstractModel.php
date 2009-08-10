@@ -32,6 +32,8 @@ require_once 'Zend/Registry.php';
 /**
  * Class that defines the model dependencies
  * @author albert
+ * @author Akeem Philbert <akeemphilbert@gmail.com>
+ * @copyright IFPHP (c) 2009
  */
 class AbstractModel extends Zend_Db_Table_Abstract{	
 
@@ -41,19 +43,20 @@ class AbstractModel extends Zend_Db_Table_Abstract{
 	 * (non-PHPdoc)
 	 * @see library/Zend/Db/Table/Zend_Db_Table_Abstract#fetchRow($where, $order)
 	 */
-	public function fetchRow($where=null, $order=null)
-	{	
-		$name = $this->_name .'_'. md5($where);
-		
-		$data = $this->loadCache($name);
-		
-		if(!$data)
-		{
-			$data = parent::fetchRow($where, $order);					  
-			$this->saveCache($data, $name);
-		}
-		return $data; 
-	}
+//commented out because there is a problem with the save function on Zend_Db_Table_Row because after save it callse fetchRow without a $where statement (and that causes an error on md5())
+//	public function fetchRow($where=null, $order=null)
+//	{	
+//		$name = $this->_name .'_'. md5($where);
+//		
+//		$data = $this->loadCache($name);
+//		
+//		if(!$data)
+//		{
+//			$data = parent::fetchRow($where, $order);					  
+//			$this->saveCache($data, $name);
+//		}
+//		return $data; 
+//	}
 	
 	/**
 	 * This is overridden to handle cache
@@ -167,4 +170,32 @@ class AbstractModel extends Zend_Db_Table_Abstract{
 			$cache->clean(Zend_Cache::CLEANING_MODE_ALL);	
 		}
 	}
+	
+	/**
+	 * 
+	 * 
+	 * (non-PHPdoc)
+	 * @see Db/Table/Zend_Db_Table_Abstract#insert($data)
+	 */
+ 	public function insert(array $data)
+    {
+        // add a timestamp
+        if (empty($data['created'])) {
+            $data['created'] = time();
+        }
+        return parent::insert($data);
+    }
+    
+	/**
+	 * (non-PHPdoc)
+	 * @see Db/Table/Zend_Db_Table_Abstract#update($data, $where)
+	 */
+    public function update(array $data, $where)
+    {
+        // add a timestamp
+        if (empty($data['modified'])) {
+            $data['modified'] = time();
+        }
+        return parent::update($data, $where);
+    }
 }
