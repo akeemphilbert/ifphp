@@ -1,13 +1,8 @@
 	<div class="categories">
     <h4>Categories</h4>
         <ul>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
+        	<?php foreach ($this->categories as $category):?>
+            <li><a href="/category/view/id/<?=$category->id?>"><?=$category->title?></a></li>
+            <?php endforeach;?>
         </ul>
     </div>
