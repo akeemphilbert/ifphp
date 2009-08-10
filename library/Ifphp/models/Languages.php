@@ -6,6 +6,7 @@
  * 
  * @version 0.1
  * @author 
+ * @author Akeem Philbert <akeemphilbert@gmail.com>
  * @package Ifphp
  * @subpackage models
  * @copyright 2009 Ifphp
@@ -22,5 +23,17 @@ require_once 'Ifphp/core/AbstractModel.php';
  */
 class Languages extends AbstractModel{
 	protected $_name = 'languages';
+	
+	/**
+	 * Get all available languages
+	 * 
+	 * @return Zend_Db_Table_Rowset
+	 */
+	public function getAll()
+	{
+		$select = $this->select();
+		
+		return $this->fetchAll($select);
+	}
 	
 }
