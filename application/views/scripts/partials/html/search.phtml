@@ -1,4 +1,6 @@
   <div class="search">
-    <input type="text" class="text" value="search" />
+  <form action="<?= $this->baseUrl() ?>/search" method="get">
+    <input type="text" class="text" value="search" name="term" id="term"/>
     <input type="submit" class="submit" value="search" />
+  </form>
   </div>

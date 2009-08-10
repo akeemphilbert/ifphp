@@ -32,6 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->setupRoutes();	
 		$this->setupLoggers();
 		$this->setupIdentity();
+		$this->setupViewHelpers();		
 		parent::run();
 			
 	}
@@ -118,6 +119,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function setupIdentity()
     {
     	Zend_Session::start();
+    }
+    
+    /**
+     * Sets up the view helpers
+     * 
+     * @return void
+     */
+    public function setupViewHelpers(){
+    	$view = new Zend_View();
+		$view->addHelperPath(APPLICATION_PATH . "/views/helpers/", "Ifphp_View_Helper");
+		
+		$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
+		$viewRenderer->setView($view);
+		Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+    	
     }
     
     

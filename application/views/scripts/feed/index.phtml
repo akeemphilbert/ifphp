@@ -1,1 +1,52 @@
-<h2>Feed landing</h2>
+<h2>Weblogs</h2>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum purus hendrerit magna malesuada non volutpat urna lobortis. Suspendisse potenti. Sed lacus nisi, interdum quis porta non, dapibus in urna. Integer arcu eros, euismod non ornare ultrices, congue in metus.</p>
+
+<table>
+	<thead>
+		<tr><th>Category</th><th>OPML</th></tr>
+	</thead>
+	<tbody>
+		<?php foreach($this->categories as $cat):?>
+	
+		<tr>
+			<td><?= $cat->title?></td>
+			<td>
+				<select id="feedByCategory" name="feedByCategory">
+					<?php foreach($this->feedsByCategory[$cat->title] as $feed):?>
+						<option value='<?= $feed->id?>'>
+							<?= $feed->title ?>
+						</option>
+					<?php endforeach;?>
+				</select>
+			</td>
+		</tr>		
+		<?php endforeach;?>	
+	</tbody>
+</table>
+
+
+<table>
+
+	<caption>All Feeds</caption>
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Site</th>
+		<th>Language</th>
+		<th>Last Updated</th>
+	</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($this->feeds as $feed):?>
+			<tr>
+				<th><?= $feed->title?></th>
+				<th><?= $feed->siteUrl?></th>
+				<th><?= $feed->language?></th>
+				<th><?= $this->date($feed->modified)?></th>
+			</tr>
+		<?php endforeach;?>
+		
+	</tbody>
+
+</table>
