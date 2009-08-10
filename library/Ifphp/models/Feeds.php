@@ -32,7 +32,7 @@ class Feeds extends AbstractModel
 	 */
 	public function getAll($page=1,$limit=0)
 	{
-		$select = $this->select();
+		$select = $this->getSelect();
 		return $this->fetchAll($select,null,$page,$limit);
 	}
 	
@@ -76,26 +76,8 @@ class Feeds extends AbstractModel
 		
 		$select = $this->getSelect();
 		$select->where('categories.id = ?', $categoryId);
-
 		return $this->fetchAll($select);
 		
-	}
-	
-	/**
-	 * Returns all the Feeds if a where is defined it will filter for the
-	 * Feeds that match that criteria
-	 * 
-	 * @param Zend_Db_Table_Select $where
-	 * @return Zend_Db_Table_RowSet
-	 */
-	public function getAll($where = null){
-		$select = $this->getSelect();
-		
-		if($where){
-			$select->where($where);
-		}
-		
-		return $this->fetchAll($select);	
-	}
+	}	
 	
 }
