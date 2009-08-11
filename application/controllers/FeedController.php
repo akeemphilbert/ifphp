@@ -107,6 +107,7 @@ class FeedController extends Zend_Controller_Action
     		catch (Zend_Feed_Exception $error)
     		{
     			$form->url->markAsError();
+                Zend_Registry::getInstance()->logger->err($error);
     			return;
     		}
     	}
@@ -134,10 +135,31 @@ class FeedController extends Zend_Controller_Action
     	$this->view->posts = $posts->getByFeedId($id);
     	//TODO add pagination
     }
-    
+
+    /**
+     * Ping site to check for updated posts
+     */
     public function pingAction()
     {
-    	
+        $form = $this->getPingForm();
+
+        if ($this->getRequest()->isPost() && $form->isValid($_POST))
+        {
+            $feeds = new Feeds();
+            $feed = $feeds->getBySiteUrl($form->url->getValue());
+
+            try
+            {
+                $feedSource = Zend_Feed::import($form->url->getValue());
+                //TODO find way to get the latest cotnent without parsing the entire feed
+            }
+            catch (Zend_Feed_Exception $error)
+            {
+                Zend_Registry::getInstance()->logger->err($error);
+            }
+        }
+
+        $this->view->form = $form;
     }
     
     public function listAction()
@@ -159,6 +181,19 @@ class FeedController extends Zend_Controller_Action
     	}
     	
     	return $this->_submitForm;
+    }
+
+    /**
+     * Get blog ping form
+     *
+     * @return Zend_Form
+     */
+    protected function getPingForm()
+    {
+       $fonfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/forms.ini');
+       $form = new Zend_Form($config->feed->ping);
+
+       return $form;
     }
     
     /**
