@@ -190,7 +190,7 @@ class FeedController extends Zend_Controller_Action
      */
     protected function getPingForm()
     {
-       $fonfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/forms.ini');
+       $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/forms.ini');
        $form = new Zend_Form($config->feed->ping);
 
        return $form;
