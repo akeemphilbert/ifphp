@@ -1,2 +1,18 @@
-<?php $this->headTitle('Search');?>
-<h2>Search</h2>
+<?php $this->headTitle($this->translate('Search'));?>
+<h2><?= $this->translate('Search')?></h2>
+
+<p>
+<?= $this->translate('Search Term')?>: <?= $this->term ?>
+<br/>
+<?= sizeof($this->results)?> <?= $this->translate('hits')?>'
+</p>
+
+<ol>
+<?php foreach($this->results as $result):?>
+	<li><?= $result->category ?> : <?= $result->title ?> <br/>
+		<?= $result->feedUrl?> : <?= $result->siteUrl ?><br/>
+		<?= $result->language?>
+	</li>
+
+<?php endforeach;?>
+</ol>

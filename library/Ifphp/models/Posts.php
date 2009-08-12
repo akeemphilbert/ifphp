@@ -26,6 +26,7 @@ class Posts extends AbstractModel
 {
 	protected $_name = 'posts';
 	protected $_rowClass = 'Post';
+
 	
 	/**
 	 * Get posts by feed id
@@ -50,8 +51,10 @@ class Posts extends AbstractModel
      */
     public function getRecent($page=1,$limit=0)
     {
-        $select = $this->select();
-        $select->order('publishDate DESC');
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from('posts');
+        $select->join('feeds','feeds.id = posts.feedId',array('feedTitle'=>'title','siteUrl'));
+        $select->order('posts.publishDate DESC');
         return $this->fetchAll($select,$page,$limit);
     }
 }

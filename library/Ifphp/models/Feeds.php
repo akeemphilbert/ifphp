@@ -32,7 +32,7 @@ class Feeds extends AbstractModel
 	 */
 	public function getAll($page=1,$limit=0)
 	{
-		$select = $this->select();
+		$select = $this->getSelect();
 		return $this->fetchAll($select,null,$page,$limit);
 	}
 	
@@ -61,5 +61,36 @@ class Feeds extends AbstractModel
         $select->where('siteUrl = ?',$url);
         return $this->fetchRow($select);
     }
+	
+	
+	/**
+	 * Returns the complete Select statement for a basic feed
+	 * 
+	 * @return Zend_Db_Table_Select
+	 */
+	public function getSelect(){
+		$select = $this->select()->setIntegrityCheck(false)->from(array('feeds'=>'feeds'));		
+		$select->join(array('categories'=>'categories'), 'feeds.categoryId = categories.id',
+			array('category'=>'title'));
+		$select->join(array('languages'=>'languages'),'feeds.languageId = languages.id', 
+			array('language'=>'languages.title'));
+			
+		return $select;
+		
+	}
+	
+	/**
+	 * Returns the feeds that relate to a specific category
+	 * 
+	 * @param int $categoryId
+	 * @return Zend_Db_Table_RowSet
+	 */
+	public function getByCategory($categoryId){
+		
+		$select = $this->getSelect();
+		$select->where('categories.id = ?', $categoryId);
+		return $this->fetchAll($select);
+		
+	}	
 	
 }

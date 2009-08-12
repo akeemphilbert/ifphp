@@ -1,5 +1,5 @@
 	<div class="categories">
-    <h4>Categories</h4>
+    <h4><?= $this->translate('Categories') ?></h4>
         <ul>
         	<?php foreach ($this->categories as $category):?>
             <li><a href="/category/view/id/<?=$category->id?>"><?=$category->title?></a></li>

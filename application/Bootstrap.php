@@ -34,17 +34,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 	/**
 	 * Run custom setup functions. This was abstracted from run for Unit Testing purposes
-	 * 
+	 * NOTE: order is important loggers must be before locale due to logging locale errors 
 	 * @return void
 	 */
 	protected function _bootstrap($resource=null)
 	{
 		parent::_bootstrap($resource);
-		
-		$this->setUpLocale();	
-		$this->setupRoutes();	
+
 		$this->setupLoggers();
+		$this->setUpLocale();	
+		$this->setupRoutes();
 		$this->setupIdentity();
+		$this->setupViewHelpers();		
 	}
 	
 	/**
@@ -65,10 +66,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         	$config->cache->backend->toArray()
         );
         $cache->start();
+        
     }
     
     /**
-     * This is where we set up the locale
+     * This is where we set up the locale and set the translation adapters
      * 
      * @return void
      */
@@ -78,10 +80,26 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		try {
     		$locale = new Zend_Locale(Zend_Locale::BROWSER);
 		} catch (Zend_Locale_Exception $e) {
-    		$locale = new Zend_Locale('de');
+    		$locale = new Zend_Locale('en_US');
     		
 		}
 		Zend_Locale::setDefault($locale);
+    	
+		// here we define the translator
+		$translatePath = APPLICATION_PATH.'/languages/translate.xml';
+    	    
+    	$options = array('log'=>Zend_Registry::get('logger'),'disableNotices'=>false, 
+    		'logMessage'=>"Untranslated message within '%locale%': %message% : %word%");
+    	$translate = new Zend_Translate('tmx',
+			$translatePath,$locale, $options
+		);
+		
+		// hwere we add the translator to the registry
+		Zend_Registry::set('translate', $translate);
+		
+		// here we set all forms attached to the translator
+		// this will translate everything on the form
+		Zend_Form::setDefaultTranslator($translate);
 		
     }
     
@@ -118,6 +136,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     	$logger->addWriter($fbug);
     	
     	Zend_Registry::set('logger',$logger);
+    	
     		
     }
     
@@ -130,6 +149,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
     	Zend_Session::start();
     }
+    
+    /**
+     * Sets up the view helpers
+     * 
+     * @return void
+     */
+    public function setupViewHelpers(){
+    	$view = new Zend_View();
+		$view->addHelperPath(APPLICATION_PATH . "/views/helpers/", "Ifphp_View_Helper");
+		
+		$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
+		$viewRenderer->setView($view);
+		Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+    	
+    }
+    
     
     
     

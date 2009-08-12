@@ -35,6 +35,9 @@ class ModuleController extends Zend_Controller_Action
 	
 	public function languagesAction()
 	{
+		require_once 'Ifphp/models/Languages.php';
+		$languages = new Languages();
+		$this->view->languages = $languages->getAll();
 		
 	}
 	

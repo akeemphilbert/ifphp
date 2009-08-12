@@ -1,13 +1,8 @@
  <div class="languages">
-    <h4>Languages</h4>
+    <h4><?= $this->translate('Languages')?></h4>
         <ul>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
-            <li><a href="#">Lorem Ipsum Dolor</a></li>
+        	<?php foreach($this->languages as $language):?>
+            <li><a href="<?= $this->baseUrl()?>/language/view/id/<?= $language->id?>"><?= $language->title?></a></li>
+            <?php endforeach;?>
         </ul>
     </div>

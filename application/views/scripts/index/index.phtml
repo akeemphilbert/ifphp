@@ -10,12 +10,12 @@
                                         </select></p>
       <hr />
       <ul class="post-info">
-        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date">July 30, 2009 1:01AM</span></li>
+        <li><span class="blog-title"><a href="<?=$post->siteUrl;?>"><?=$post->feedTitle;?></a></span> - <span class="date"><?=$this->date($post->publishDate);?></span></li>
         <li>|</li>
         <li><a href="#">Bookmark</a></li>
         <li>|</li>
         <li><a href="#">Share</a></li>
       </ul>
-      <p><?=$post->description;?></p>
+      <p><?=$post->description;?>...</p>
     </div>
     <?php endforeach;?>
