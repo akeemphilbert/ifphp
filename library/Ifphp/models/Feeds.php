@@ -48,6 +48,19 @@ class Feeds extends AbstractModel
 		$select->where('id = ?',$id);
 		return $this->fetchRow($select);
 	}
+
+    /**
+     * Get feed by site url
+     *
+     * @param string $url
+     * @return Feed
+     */
+    public function getBySiteUrl($url)
+    {
+        $select = $this->select();
+        $select->where('siteUrl = ?',$url);
+        return $this->fetchRow($select);
+    }
 	
 	
 	/**
