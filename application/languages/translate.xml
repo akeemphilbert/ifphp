@@ -1,0 +1,273 @@
+<?xml version="1.0" ?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+	<header creationtool="CTmx" creationtoolversion="1.0" datatype="winres" segtype="sentence" adminlang="en-us" srclang="en-us" o-tmf="txt">
+	</header>
+	<!-- es for spanish translation -->
+	<!-- en for english translation -->
+
+	<body>
+
+		<tu tuid='Categories'>
+			<tuv xml:lang="en">
+				<seg>Categories</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Categorías</seg>
+			</tuv>
+		</tu>
+
+		<tu tuid='Smart Categories'>
+			<tuv xml:lang="en">
+				<seg>Smart Categories</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Smart Categorías</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Languages'>
+			<tuv xml:lang="en">
+				<seg>Languages</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Idiomas</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Popular Blogs'>
+			<tuv xml:lang="en">
+				<seg>Popular Blogs</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Popular Blogs</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Recently Updated Blogs'>
+			<tuv xml:lang="en">
+				<seg>Recently Updated Blogs</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Blogs actualizados recientemente</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Home'>
+			<tuv xml:lang="en">
+				<seg>Home</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Inicio</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Submit Feed'>
+			<tuv xml:lang="en">
+				<seg>Submit Feed</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Enviar feed</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Ping Feed'>
+			<tuv xml:lang="en">
+				<seg>Ping Feed</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Ping feed</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Weblog'>
+			<tuv xml:lang="en">
+				<seg>Weblogs</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Weblog</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Support'>
+			<tuv xml:lang="en">
+				<seg>Support</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Soporte</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='About'>
+			<tuv xml:lang="en">
+				<seg>About</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>De</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Search'>
+			<tuv xml:lang="en">
+				<seg>Search</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Busca</seg>
+			</tuv>
+		</tu>
+		
+		
+		<tu tuid='Bookmark'>
+			<tuv xml:lang="en">
+				<seg>Bookmark</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Marcador</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Share'>
+			<tuv xml:lang="en">
+				<seg>Share</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Parte</seg>
+			</tuv>
+		</tu>
+		
+		
+		<tu tuid='Translate'>
+			<tuv xml:lang="en">
+				<seg>Translate</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Traducir </seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='PHP News Aggregator'>
+			<tuv xml:lang="en">
+				<seg>PHP News Aggregator</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>PHP News Aggregator</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Aggregating'>
+			<tuv xml:lang="en">
+				<seg>Aggregating</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Agregación de</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='feeds'>
+			<tuv xml:lang="en">
+				<seg>feeds</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>canales</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Search Term'>
+			<tuv xml:lang="en">
+				<seg>Search Term</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Término de búsqueda</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Hits'>
+			<tuv xml:lang="en">
+				<seg>Hits</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Resultados</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Feed Url'>
+			<tuv xml:lang="en">
+				<seg>Feed Url</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>URL del feed</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Site Url'>
+			<tuv xml:lang="en">
+				<seg>Site Url</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>URL del sitio</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Category'>
+			<tuv xml:lang="en">
+				<seg>Category</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Categoría</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Language'>
+			<tuv xml:lang="en">
+				<seg>Language</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Idioma</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Full Name'>
+			<tuv xml:lang="en">
+				<seg>Hits</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Nombre completo</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Email'>
+			<tuv xml:lang="en">
+				<seg>Email</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Correo electrónico</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='Captcha'>
+			<tuv xml:lang="en">
+				<seg>Captcha</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Captcha</seg>
+			</tuv>
+		</tu>
+		
+		<tu tuid='submit'>
+			<tuv xml:lang="en">
+				<seg>Submit</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Enviar</seg>
+			</tuv>
+		</tu>
+		
+		
+		<tu tuid='Ping feed'>
+			<tuv xml:lang="en">
+				<seg>Ping Feed</seg>
+			</tuv>
+			<tuv xml:lang="es">
+				<seg>Ping Feed</seg>
+			</tuv>
+		</tu>

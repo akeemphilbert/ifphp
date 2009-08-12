@@ -1,10 +1,10 @@
-<?php $this->headTitle('Search');?>
-<h2>Search</h2>
+<?php $this->headTitle($this->translate('Search'));?>
+<h2><?= $this->translate('Search')?></h2>
 
 <p>
-Search Term: <?= $this->term ?>
+<?= $this->translate('Search Term')?>: <?= $this->term ?>
 <br/>
-<?= sizeof($this->results)?> hits
+<?= sizeof($this->results)?> <?= $this->translate('hits')?>'
 </p>
 
 <ol>

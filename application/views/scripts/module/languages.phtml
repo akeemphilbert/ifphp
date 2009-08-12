@@ -1,5 +1,5 @@
  <div class="languages">
-    <h4>Languages</h4>
+    <h4><?= $this->translate('Languages')?></h4>
         <ul>
         	<?php foreach($this->languages as $language):?>
             <li><a href="<?= $this->baseUrl()?>/language/view/id/<?= $language->id?>"><?= $language->title?></a></li>
