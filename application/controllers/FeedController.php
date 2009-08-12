@@ -91,12 +91,38 @@ class FeedController extends Zend_Controller_Action
     		
     		try
     		{
-    			$feedSource = Zend_Feed::import($form->url->getValue());
-    			
-    			if ($feedSource instanceof Zend_Feed_Rss)
-    			$feed = $this->_processRSSFeed($feedSource,$user->id);
-    			elseif ($feedSource instanceof Zend_Feed_Atom)
-    			$feed = $this->_processAtomFeed($feedSource,$user->id);
+    			$feedSource = Zend_Feed_Reader::import($form->url->getValue());
+
+                //convert/parse feed to strongly typed objects
+                //TODO santize the feed data before putting them in
+                $feeds = new Feeds();
+                $feed = $feeds->createRow();
+                $feed->token = md5(uniqid($user->id));
+                $feed->url = $form->url->getValue();
+                $feed->title = $feedSource->getTitle();
+                $feed->description = $feedSource->getDescription();
+                $feed->categoryId = $form->category->getValue();
+                $feed->languageId = $form->language->getValue();
+                $feed->siteUrl = $form->siteUrl->getValue();
+                $feed->statusId = Status::ACTIVE;
+                $feed->userId = $user->id;
+                $feed->refreshRate = 120;//TODO this is sometimes stored in the feed
+                $feed->save();
+
+                //parse feed
+                $posts = new Posts();
+
+                foreach ($feedSource as $feedEntry)
+                {
+                    $post = $posts->createRow();
+                    $post->title = $feedEntry->getTitle();
+                    $post->description = $feedEntry->getDescription();
+                    $post->link = $feedEntry->getPermaLink();
+                    $post->feedId = $feed->id;
+                    $date = new Zend_Date($feedEntry->getDateModified());
+                    $post->publishDate = $date->toValue();
+                    $post->save();
+                }
     			
     			
     			$this->_flashMessenger->addMessage('Your feed has been added to the site');
@@ -147,16 +173,7 @@ class FeedController extends Zend_Controller_Action
         {
             $feeds = new Feeds();
             $feed = $feeds->getBySiteUrl($form->url->getValue());
-
-            try
-            {
-                $feedSource = Zend_Feed::import($form->url->getValue());
-                //TODO find way to get the latest cotnent without parsing the entire feed
-            }
-            catch (Zend_Feed_Exception $error)
-            {
-                Zend_Registry::getInstance()->logger->err($error);
-            }
+            $this->updateFeedPosts($feed);
         }
 
         $this->view->form = $form;
@@ -195,85 +212,41 @@ class FeedController extends Zend_Controller_Action
 
        return $form;
     }
-    
+
     /**
-     * Process RSS Feed
-     * 
-     * @return Feed
+     * Get the latest posts from a feed
+     *
+     * @param Feed $feed
      */
-    protected function _processRSSFeed(Zend_Feed_Rss $feedSource,$userId)
+    protected function updateFeedPosts(Feed $feed)
     {
-    	$form = $this->getSubmitForm();
-    	
-    	$feeds = new Feeds();
-    	$feed = $feeds->createRow();
-    	$feed->token = md5(uniqid($userId));
-    	$feed->url = $form->url->getValue();
-    	$feed->title = $feedSource->title();
-    	$feed->description = $feedSource->description();
-    	$feed->categoryId = $form->category->getValue();
-    	$feed->languageId = $form->language->getValue();
-    	$feed->siteUrl = $form->siteUrl->getValue();
-    	$feed->statusId = Status::ACTIVE;
-    	$feed->userId = $userId;
-    	$feed->refreshRate = 120;//TODO this is sometimes stored in the feed
-    	$feed->save();
-    	
-    	//parse feed
-    	$posts = new Posts();
-    	
-    	foreach ($feedSource as $feedEntry)
-    	{
-    		$post = $posts->createRow();
-    		$post->title = $feedEntry->title();
-    		$post->description = $feedEntry->description();
-    		$post->link = $feedEntry->link();
-    		$post->feedId = $feed->id;
-    		$date = new Zend_Date($feedEntry->pubDate());
-    		$post->publishDate = $date->toValue();
-    		$post->save();
-    	}
-    	
-    	return $feed;
-    }
-    
-	/**
-     * Process Atom Feed
-     * 
-     * @return Feed
-     */
-    protected function _processAtomFeed(Zend_Feed_Atom $feedSource,$userId)
-    {
-    	$feeds = new Feeds();
-    	$feed = $feeds->createRow();
-    	$feed->token = md5(uniqid($userId));
-    	$feed->url = $form->url->getValue();
-    	$feed->title = $feedSource->title();
-    	$feed->description = $feedSource->subTitle();
-    	$feed->categoryId = $form->category->getValue();
-    	$feed->languageId = $form->language->getValue();
-    	$feed->siteUrl = $form->siteUrl->getValue();
-    	$feed->statusId = Status::ACTIVE;
-    	$feed->userId = $user->id;
-    	$feed->refreshRate = 120;//TODO this is sometimes stored in the feed
-    	$feed->save();
-    	
-    	//parse feed
-    	$posts = new Posts();
-    	
-    	foreach ($feedSource as $feedEntry)
-    	{
-    		$post = $posts->createRow();
-    		$post->title = $feedEntry->title();
-    		$post->description = $feedEntry->summary();
-    		$post->link = $feedEntry->link();
-    		$post->feedId = $feed->id;
-    		$date = new Zend_Date($feedEntry->published());
-    		$post->publishDate = $date->toValue();
-    		$post->save();
-    	}
-    	
-    	return $feed;
+        $feedSource = Zend_Feed_Reader::import($feed->url);
+
+        $posts = new Posts();
+
+        $tdate = $feedSource->current()->getDateModified();
+        $tdate = new Zend_Date($tdate);
+
+        while ($feedSource->valid() && $tdate->toValue() > $feed->lastPing)
+        {
+            $tdate = $feedSource->current()->getDateModified();
+            $tdate = new Zend_Date($tdate);
+
+            //TODO filter data before saving to database
+
+            $post = $posts->createRow();
+            $post->title = $feedSource->current()->getTitle();
+            $post->description = $feedSource->current()->getDescription();
+            $post->feedId = $feed->id;
+            $post->link = $feedSource->current()->getPermaLink();
+            $post->publishDate = $tdate->toValue();
+            $post->save();
+
+            $feedSource->next();
+        }
+
+         $feed->lastPing = time();
+         $feed->save();
     }
     
     

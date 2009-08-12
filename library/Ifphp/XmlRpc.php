@@ -18,7 +18,7 @@ class Ifphp_PingBack_XmlRpc
     {
         try
         {
-
+            
         }
         catch (Zend_Exception $error)
         {
