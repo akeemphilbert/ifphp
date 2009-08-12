@@ -30,9 +30,9 @@ class Posts extends AbstractModel
 	/**
 	 * Get posts by feed id
 	 * 
-	 * @param $feedId
-	 * @param $page
-	 * @param $limit
+	 * @param integer $feedId
+	 * @param integer $page
+	 * @param integer $limit
 	 * @return Zend_Db_Table_Rowset
 	 */
 	public function getByFeedId($feedId,$page=1,$limit=0)
@@ -41,4 +41,17 @@ class Posts extends AbstractModel
 		$select->where('feedId = ?',$feedId);
 		return $this->fetchAll($select,$page,$limit);
 	}
+
+    /**
+     * Get recent posts
+     *
+     * @param integer $page
+     * @param integer $limit
+     */
+    public function getRecent($page=1,$limit=0)
+    {
+        $select = $this->select();
+        $select->order('publishDate DESC');
+        return $this->fetchAll($select,$page,$limit);
+    }
 }

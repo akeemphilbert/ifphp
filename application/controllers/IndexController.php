@@ -1,5 +1,6 @@
 <?php
 require_once 'Ifphp/models/Supports.php';
+require_once 'Ifphp/models/Posts.php';
 
 class IndexController extends Zend_Controller_Action
 {
@@ -9,15 +10,15 @@ class IndexController extends Zend_Controller_Action
         /* Initialize action controller here */
     }
 
+    /**
+     * Site landing page
+     */
     public function indexAction()
     {
-        // action body
-//        //here I will be testing the models
-//        $user = new Ifphp\models\Users();
-//        $result = $user->getById(2);
-//        echo sizeof($result);
-//        echo $result->username;
-        
+        $posts = new Posts();
+        $this->view->posts = $posts->getRecent(1,10);
+//        Zend_Debug::dump($this->view->posts);
+//        die();
     }
     
     /**
@@ -61,4 +62,3 @@ class IndexController extends Zend_Controller_Action
 
 
 }
-

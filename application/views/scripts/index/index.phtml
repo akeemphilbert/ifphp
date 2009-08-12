@@ -2,77 +2,20 @@
 
   
     <h3>Most Recent - <a href="#" class="alt">RSS &raquo;</a></h3>
+    <?php foreach ($this->posts as $post):?>
     <div class="post">
+    <p><a href="<?=$post->link;?>"><?=$post->title;?></a> | <select name="translate">
+      									<option selected="selected">Translate</option>
+                                        <option>English</option>
+                                        </select></p>
+      <hr />
       <ul class="post-info">
-        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date">July 30, 2009 1:01AM</span></li>
+        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date"><?=$this->date($post->publishDate);?></span></li>
         <li>|</li>
         <li><a href="#">Bookmark</a></li>
         <li>|</li>
         <li><a href="#">Share</a></li>
       </ul>
-      <p>Lorem ipsum dolor sit amet, <em>consectetuer adipiscing elit</em>. Nunc congue ipsum vestibulum libero. Aenean vitae justo. Nam eget tellus. Etiam convallis, est eu lobortis mattis, lectus tellus tempus felis, a ultricies erat ipsum at metus. Integer cursus ornare mauris. Praesent nisl arcu, imperdiet eu, ornare id, scelerisque ut, nunc. Praesent sagittis erat sed velit tempus imperdiet. Ut tristique, ante in interdum hendrerit, erat enim faucibus felis, quis rutrum mauris lorem quis sem. Vestibulum ligula nisi, mattis nec, posuere et, blandit eu, ligula. Nam suscipit placerat odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque tortor libero, venenatis vitae, rhoncus eu, placerat ut, mi. Nulla nulla......</p>
-      <p><a href="#">Lorem Lorem</a> | <select name="translate">
-      									<option selected="selected">Translate</option>
-                                        <option>English</option>
-                                        </select></p>
+      <p><?=$post->description;?></p>
     </div>
-    <hr />
-    <div class="post">
-      <ul class="post-info">
-        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date">July 30, 2009 1:01AM</span></li>
-        <li>|</li>
-        <li><a href="#">Bookmark</a></li>
-        <li>|</li>
-        <li><a href="#">Share</a></li>
-      </ul>
-      <p>Lorem ipsum dolor sit amet, <em>consectetuer adipiscing elit</em>. Nunc congue ipsum vestibulum libero. Aenean vitae justo. Nam eget tellus. Etiam convallis, est eu lobortis mattis, lectus tellus tempus felis, a ultricies erat ipsum at metus. Integer cursus ornare mauris. Praesent nisl arcu, imperdiet eu, ornare id, scelerisque ut, nunc. Praesent sagittis erat sed velit tempus imperdiet. Ut tristique, ante in interdum hendrerit, erat enim faucibus felis, quis rutrum mauris lorem quis sem. Vestibulum ligula nisi, mattis nec, posuere et, blandit eu, ligula. Nam suscipit placerat odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque tortor libero, venenatis vitae, rhoncus eu, placerat ut, mi. Nulla nulla......</p>
-      <p><a href="#">Lorem Lorem</a> | <select name="translate">
-      									<option selected="selected">Translate</option>
-                                        <option>English</option>
-                                        </select></p>
-    </div>
-    <hr />
-    <div class="post">
-      <ul class="post-info">
-        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date">July 30, 2009 1:01AM</span></li>
-        <li>|</li>
-        <li><a href="#">Bookmark</a></li>
-        <li>|</li>
-        <li><a href="#">Share</a></li>
-      </ul>
-      <p>Lorem ipsum dolor sit amet, <em>consectetuer adipiscing elit</em>. Nunc congue ipsum vestibulum libero. Aenean vitae justo. Nam eget tellus. Etiam convallis, est eu lobortis mattis, lectus tellus tempus felis, a ultricies erat ipsum at metus. Integer cursus ornare mauris. Praesent nisl arcu, imperdiet eu, ornare id, scelerisque ut, nunc. Praesent sagittis erat sed velit tempus imperdiet. Ut tristique, ante in interdum hendrerit, erat enim faucibus felis, quis rutrum mauris lorem quis sem. Vestibulum ligula nisi, mattis nec, posuere et, blandit eu, ligula. Nam suscipit placerat odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque tortor libero, venenatis vitae, rhoncus eu, placerat ut, mi. Nulla nulla......</p>
-      <p><a href="#">Lorem Lorem</a> | <select name="translate">
-      									<option selected="selected">Translate</option>
-                                        <option>English</option>
-                                        </select></p>
-    </div>
-    <hr />
-    <div class="post">
-      <ul class="post-info">
-        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date">July 30, 2009 1:01AM</span></li>
-        <li>|</li>
-        <li><a href="#">Bookmark</a></li>
-        <li>|</li>
-        <li><a href="#">Share</a></li>
-      </ul>
-      <p>Lorem ipsum dolor sit amet, <em>consectetuer adipiscing elit</em>. Nunc congue ipsum vestibulum libero. Aenean vitae justo. Nam eget tellus. Etiam convallis, est eu lobortis mattis, lectus tellus tempus felis, a ultricies erat ipsum at metus. Integer cursus ornare mauris. Praesent nisl arcu, imperdiet eu, ornare id, scelerisque ut, nunc. Praesent sagittis erat sed velit tempus imperdiet. Ut tristique, ante in interdum hendrerit, erat enim faucibus felis, quis rutrum mauris lorem quis sem. Vestibulum ligula nisi, mattis nec, posuere et, blandit eu, ligula. Nam suscipit placerat odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque tortor libero, venenatis vitae, rhoncus eu, placerat ut, mi. Nulla nulla......</p>
-      <p><a href="#">Lorem Lorem</a> | <select name="translate">
-      									<option selected="selected">Translate</option>
-                                        <option>English</option>
-                                        </select></p>
-    </div>
-    <hr />
-    <div class="post">
-      <ul class="post-info">
-        <li><span class="blog-title"><a href="#">Some Blog Title</a></span> - <span class="date">July 30, 2009 1:01AM</span></li>
-        <li>|</li>
-        <li><a href="#">Bookmark</a></li>
-        <li>|</li>
-        <li><a href="#">Share</a></li>
-      </ul>
-      <p>Lorem ipsum dolor sit amet, <em>consectetuer adipiscing elit</em>. Nunc congue ipsum vestibulum libero. Aenean vitae justo. Nam eget tellus. Etiam convallis, est eu lobortis mattis, lectus tellus tempus felis, a ultricies erat ipsum at metus. Integer cursus ornare mauris. Praesent nisl arcu, imperdiet eu, ornare id, scelerisque ut, nunc. Praesent sagittis erat sed velit tempus imperdiet. Ut tristique, ante in interdum hendrerit, erat enim faucibus felis, quis rutrum mauris lorem quis sem. Vestibulum ligula nisi, mattis nec, posuere et, blandit eu, ligula. Nam suscipit placerat odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque tortor libero, venenatis vitae, rhoncus eu, placerat ut, mi. Nulla nulla......</p>
-      <p><a href="#">Lorem Lorem</a> | <select name="translate">
-      									<option selected="selected">Translate</option>
-                                        <option>English</option>
-                                        </select></p>
-    </div>
+    <?php endforeach;?>
