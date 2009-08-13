@@ -1,13 +1,15 @@
 <?php
 require_once 'Ifphp/models/Supports.php';
 require_once 'Ifphp/models/Posts.php';
+require_once 'Ifphp/core/SyndicateController.php';
 
-class IndexController extends Zend_Controller_Action
+class IndexController extends Ifphp_SyndicateController
 {
 
     public function init()
     {
-        /* Initialize action controller here */
+        parent::init();
+        
     }
 
     /**
@@ -17,8 +19,6 @@ class IndexController extends Zend_Controller_Action
     {
         $posts = new Posts();
         $this->view->posts = $posts->getRecent(1,10);
-//        Zend_Debug::dump($this->view->posts);
-//        die();
     }
     
     /**
@@ -55,10 +55,5 @@ class IndexController extends Zend_Controller_Action
     	$supports = new Supports();
     	$supports->clear();
     }
-    
-    
-    
-    
-
 
 }

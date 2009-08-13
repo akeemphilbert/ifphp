@@ -1,7 +1,7 @@
 
 
   
-    <h3>Most Recent - <a href="#" class="alt">RSS &raquo;</a></h3>
+    <h3>Most Recent - <a href="<?=$this->baseUrl(); ?>/?format=rss" class="alt">RSS &raquo;</a></h3>
     <?php foreach ($this->posts as $post):?>
     <div class="post">
     <p><a href="<?=$post->link;?>"><?=$post->title;?></a> | <select name="translate">

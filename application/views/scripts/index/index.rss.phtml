@@ -1,0 +1,16 @@
+<rss version="2.0">
+    <channel>
+        <title>Most Recent Posts</title>
+        <description>Recently aggregated posts</description>
+        <language>en-Us</language>
+        <pubDate></pubDate>
+        <?php foreach ($this->posts as $post):?>
+         <item>
+            <title><?=$post->title;?></title>
+            <link><?=$post->link;?></link>
+            <description><?=$post->description;?></description>
+            <pubDate><?=$this->date($post->publishDate);?></pubDate>
+         </item>
+        <?php endforeach;?>
+    </channel>
+</rss>
