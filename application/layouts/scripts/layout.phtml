@@ -28,13 +28,11 @@
 <?= $this->layout()->content ?>
 </div>
   <div class="sidebar last">
-  	<?= $this->action('categories','module') ?>
+    <?= $this->action('list','category') ?>
     <hr />
-    <?= $this->action('smart-categories','module') ?>    
+    <?= $this->action('recently-updated','feed') ?>
     <hr />
-    <?= $this->action('recent-blog-update','module') ?>  	
-    <hr />
-    <?= $this->action('popular-blog','module') ?>
+    <?= $this->action('popular','feed') ?>
     
     <hr />
     <?= $this->action('languages','module') ?>

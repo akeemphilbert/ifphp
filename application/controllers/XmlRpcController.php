@@ -13,7 +13,7 @@ class XmlRpcController extends Zend_Controller_Action
 	 * Ping should be called when new content is created
 	 */
 	public function pingAction()
-    {
+        {
 		//Do not render anything, otherwise there will be an xml parse error
 		$this->getHelper('viewRenderer')->setNoRender();
 		$this->_helper->layout->disableLayout();

@@ -1,0 +1,8 @@
+<div class="categories">
+    <h4><?= $this->translate('Categories') ?></h4>
+    <ul>
+            <?php foreach ($this->categories as $category):?>
+        <li><a href="/category/view/<?=$category->slug?>"><?=$category->title?></a></li>
+        <?php endforeach;?>
+    </ul>
+</div>

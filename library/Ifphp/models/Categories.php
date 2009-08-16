@@ -34,5 +34,17 @@ class Categories extends AbstractModel{
 		$select = $this->select();
 		return $this->fetchAll($select);
 	}
+
+        /**
+         * Get category by slug
+         * @param string $slug
+         * @return Category
+         */
+        public function getBySlug($slug)
+        {
+            $select = $this->select();
+            $select->where('slug = ?',$slug);
+            return $this->fetchRow($select);
+        }
 	
 }

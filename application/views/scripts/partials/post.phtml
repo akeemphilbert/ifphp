@@ -1,0 +1,15 @@
+<div class="post">
+<p><a href="<?=$this->post->link;?>"><?=$this->post->title;?></a> | <select name="translate">
+                                                                    <option selected="selected">Translate</option>
+                                    <option>English</option>
+                                    </select></p>
+  <hr />
+  <ul class="post-info">
+    <li><span class="blog-title"><a href="<?=$this->post->siteUrl;?>"><?=$this->post->feedTitle;?></a></span> - <span class="date"><?=$this->date($this->post->publishDate);?></span></li>
+    <li>|</li>
+    <li><a href="#">Bookmark</a></li>
+    <li>|</li>
+    <li><a href="#">Share</a></li>
+  </ul>
+  <p><?=$this->post->description;?>...</p>
+</div>

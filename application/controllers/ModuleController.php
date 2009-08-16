@@ -3,7 +3,9 @@
 require_once 'Ifphp/models/Languages.php';
 require_once 'Ifphp/models/Categories.php';
 require_once 'Ifphp/models/Posts.php';
-
+/**
+ * @deprecated 08/15/09
+ */
 class ModuleController extends Zend_Controller_Action
 {
 	public function init()
@@ -13,9 +15,7 @@ class ModuleController extends Zend_Controller_Action
 	
 	public function categoriesAction()
 	{
-		//setup the available categories
-    	$categories = new Categories();
-    	$this->view->categories = $categories->getAll();
+		
 	}
 	
 	public function smartCategoriesAction()

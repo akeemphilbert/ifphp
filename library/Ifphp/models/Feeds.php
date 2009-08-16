@@ -22,32 +22,45 @@ require_once 'Ifphp/dtos/Feed.php';
  */
 class Feeds extends AbstractModel
 {
-	protected $_name = 'feeds';
-	protected $_rowClass = 'Feed';
-	
-	/**
-	 * Get all available categories
-	 * 
-	 * @return Zend_Db_Table_Rowset
-	 */
-	public function getAll($page=1,$limit=0)
-	{
-		$select = $this->getSelect();
-		return $this->fetchAll($select,null,$page,$limit);
-	}
-	
-	/**
-	 * Get Feed by Id
-	 * 
-	 * @param $id
-	 * @return Feed
-	 */
-	public function getById($id)
-	{
-		$select = $this->select();
-		$select->where('id = ?',$id);
-		return $this->fetchRow($select);
-	}
+    protected $_name = 'feeds';
+    protected $_rowClass = 'Feed';
+
+    /**
+     * Get all available categories
+     * 
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getAll($page=1,$limit=0)
+    {
+            $select = $this->getSelect();
+            return $this->fetchAll($select,null,$page,$limit);
+    }
+
+    /**
+     * Get Feed by Id
+     *
+     * @param $id
+     * @return Feed
+     */
+    public function getById($id)
+    {
+            $select = $this->select();
+            $select->where('id = ?',$id);
+            return $this->fetchRow($select);
+    }
+
+    /**
+     * Get feed by slug
+     *
+     * @param string $slug
+     * @return Feed
+     */
+    public function getBySlug($slug)
+    {
+        $select = $this->select();
+        $select->where('slug = ?',$slug);
+        return $this->fetchRow($select);
+    }
 
     /**
      * Get feed by site url
@@ -63,34 +76,72 @@ class Feeds extends AbstractModel
     }
 	
 	
-	/**
-	 * Returns the complete Select statement for a basic feed
-	 * 
-	 * @return Zend_Db_Table_Select
-	 */
-	public function getSelect(){
-		$select = $this->select()->setIntegrityCheck(false)->from(array('feeds'=>'feeds'));		
-		$select->join(array('categories'=>'categories'), 'feeds.categoryId = categories.id',
-			array('category'=>'title'));
-		$select->join(array('languages'=>'languages'),'feeds.languageId = languages.id', 
-			array('language'=>'languages.title'));
-			
-		return $select;
-		
-	}
-	
-	/**
-	 * Returns the feeds that relate to a specific category
-	 * 
-	 * @param int $categoryId
-	 * @return Zend_Db_Table_RowSet
-	 */
-	public function getByCategory($categoryId){
-		
-		$select = $this->getSelect();
-		$select->where('categories.id = ?', $categoryId);
-		return $this->fetchAll($select);
-		
-	}	
+    /**
+     * Returns the complete Select statement for a basic feed
+     *
+     * @return Zend_Db_Table_Select
+     */
+    public function getSelect(){
+            $select = $this->select()->setIntegrityCheck(false)->from(array('feeds'=>'feeds'));
+            $select->join(array('categories'=>'categories'), 'feeds.categoryId = categories.id',
+                    array('category'=>'title'));
+            $select->join(array('languages'=>'languages'),'feeds.languageId = languages.id',
+                    array('language'=>'languages.title'));
+
+            return $select;
+
+    }
+
+    /**
+     * Returns the feeds that relate to a specific category
+     *
+     * @param int $categoryId
+     * @return Zend_Db_Table_RowSet
+     */
+    public function getByCategory($categoryId)
+    {
+
+            $select = $this->getSelect();
+            $select->where('categories.id = ?', $categoryId);
+            return $this->fetchAll($select);
+
+    }
+
+    /**
+     * Get recently updated feeds
+     *
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getRecentlyUpdated()
+    {
+        $select = $this->select();
+        $select->order('lastPing desc');
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Get popular feeds
+     *
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getPopular()
+    {
+        $select = $this->select();
+        $select->order('views desc');
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Get feed by token
+     *
+     * @param string $token
+     * @return Feed
+     */
+    public function getByToken($token)
+    {
+        $select = $this->select();
+        $select->where('token = ?',$token);
+        return $this->fetchRow($select);
+    }
 	
 }

@@ -9,6 +9,7 @@ require_once 'Ifphp/models/Posts.php';
 require_once 'Ifphp/models/Users.php';
 require_once 'Ifphp/dtos/Status.php';
 require_once 'Ifphp/dtos/Role.php';
+require_once APPLICATION_PATH.'/views/filters/XSSClean.php';
 
 
 /**
@@ -108,13 +109,23 @@ class FeedController extends Zend_Controller_Action
     			$feedSource = Zend_Feed_Reader::import($form->url->getValue());
 
                 //convert/parse feed to strongly typed objects
-                //TODO santize the feed data before putting them in
+                $defaultFilterChain = new Zend_Filter();
+                $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
+                $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
+                $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
+                
                 $feeds = new Feeds();
                 $feed = $feeds->createRow();
                 $feed->token = md5(uniqid($user->id));
-                $feed->url = $form->url->getValue();
-                $feed->title = $feedSource->getTitle();
-                $feed->description = $feedSource->getDescription();
+                $feed->url = $defaultFilterChain->filter($form->url->getValue());
+                $feed->title = $defaultFilterChain->filter($feedSource->getTitle());
+                $inflector = new Zend_Filter_Inflector(':title');
+                $inflector->setRules(array(
+                    ':title' => array('Word_SeparatorToDash','StringToLower','HtmlEntities')
+                ));
+                $feed->slug = $inflector->filter(array('title'=>$feed->title));
+
+                $feed->description = $defaultFilterChain->filter($feedSource->getDescription());
                 $feed->categoryId = $form->category->getValue();
                 $feed->languageId = $form->language->getValue();
                 $feed->siteUrl = $form->siteUrl->getValue();
@@ -129,9 +140,9 @@ class FeedController extends Zend_Controller_Action
                 foreach ($feedSource as $feedEntry)
                 {
                     $post = $posts->createRow();
-                    $post->title = $feedEntry->getTitle();
-                    $post->description = $feedEntry->getDescription();
-                    $post->link = $feedEntry->getPermaLink();
+                    $post->title = $defaultFilterChain->filter($feedEntry->getTitle());
+                    $post->description = $defaultFilterChain->filter($feedEntry->getDescription());
+                    $post->link = $defaultFilterChain->filter($feedEntry->getPermaLink());
                     $post->feedId = $feed->id;
                     $date = new Zend_Date($feedEntry->getDateModified());
                     $post->publishDate = $date->toValue();
@@ -139,8 +150,8 @@ class FeedController extends Zend_Controller_Action
                 }
     			
     			
-    			$this->_flashMessenger->addMessage('Your feed has been added to the site');
-    			$this->_redirect('/feed/view/id/'.$feed->id);
+    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/ping-back/'.$feed->token);
+    			$this->_redirect('/feed/view/'.$feed->slug);
     			//TODO send out some kind of confirmation email as well with a bit of instructions
     			
     		}
@@ -169,10 +180,12 @@ class FeedController extends Zend_Controller_Action
     	$id = $this->getRequest()->getParam('id');
     	//get feedinfo
     	$feeds = new Feeds();
-    	$this->view->feed = $feeds->getById($id);
+    	$this->view->feed = $feeds->getBySlug($id);
+        $this->view->feed->views++;
+        $this->view->feed->save();
     	//get posts
     	$posts = new Posts();
-    	$this->view->posts = $posts->getByFeedId($id);
+    	$this->view->posts = $posts->getByFeedId($this->view->feed->id);
     	//TODO add pagination
     }
 
@@ -192,10 +205,50 @@ class FeedController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
+
+    /**
+     * Ping back for the site
+     */
+    public function pingBackAction()
+    {
+        $feeds = new Feeds();
+        $feed = $feeds->getByToken($this->getRequest()->getParam('token'));
+        $this->updateFeedPosts($feed);
+        $this->getHelper('viewRenderer')->setNoRender();
+        $this->_helper->layout->disableLayout();
+
+        try {
+
+                //set up a new factory Zend xmlrpc server and add classes
+                $server = new Zend_XmlRpc_Server();
+                $server->setClass('Ifphp_Ping_XmlRpc','pingback');
+
+                //success
+                echo $server->handle();
+
+        } catch(Exception $e) {
+                throw $e;
+        }
+    }
     
     public function listAction()
     {
     	
+    }
+
+    /**
+     * Recentl updated feed module
+     */
+    public function recentlyUpdatedAction()
+    {
+        $feeds = new Feeds();
+        $this->view->feeds = $feeds->getRecentlyUpdated();
+    }
+
+    public function popularAction()
+    {
+        $feeds = new Feeds();
+        $this->view->feeds = $feeds->getPopular();
     }
     
     /**
@@ -246,16 +299,19 @@ class FeedController extends Zend_Controller_Action
             $tdate = $feedSource->current()->getDateModified();
             $tdate = new Zend_Date($tdate);
 
-            //TODO filter data before saving to database
+            $defaultFilterChain = new Zend_Filter();
+            $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
+            $defaultFiilterChain->addFilter(new Zend_Filter_StringTrim());
+            $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
 
             $post = $posts->createRow();
-            $post->title = $feedSource->current()->getTitle();
-            $post->description = $feedSource->current()->getDescription();
-            $post->feedId = $feed->id;
-            $post->link = $feedSource->current()->getPermaLink();
+            $post->title = $defaultFilterChain->filter($feedSource->current()->getTitle());
+            $post->description = $defaultFilterChain->filter($feedSource->current()->getDescription());
+            $post->feedId = $defaultFilterChain->filter($feed->id);
+            $post->link = $defaultFilterChain->filter($feedSource->current()->getPermaLink());
             $post->publishDate = $tdate->toValue();
             $post->save();
-
+            Ifphp_Controller_Front::getInstance()->getPluginBroker()->addPost($post, $feed);
             $feedSource->next();
         }
 

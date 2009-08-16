@@ -16,6 +16,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'namespace' => 'Default_',
             'basePath'  => dirname(__FILE__),
         ));
+
+        $autoloader->addResourceTypes(
+            array(
+                'Ifphp' => array(
+                    'namespace' => 'Ifphp',
+                    'path' => APPLICATIONPATH.'/../library'
+                )
+            )
+        );
         return $autoloader;
 		
 	}	
@@ -164,10 +173,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
     	
     }
-    
-    
-    
-    
     
 }
 
