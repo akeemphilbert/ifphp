@@ -1,5 +1,6 @@
  <div class="popular-blogs">
     <h4><?= $this->translate('Popular Blogs')?></h4>
+    <div class="hr dotted"><hr /></div>
         <ul>
             <?php foreach ($this->feeds as $feed):?>
             <li><a href="/feed/view/<?=$feed->slug;?>"><?=$feed->title;?></a></li>

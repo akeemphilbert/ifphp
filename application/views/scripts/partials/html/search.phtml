@@ -1,6 +1,5 @@
-  <div class="search">
-  <form action="<?= $this->baseUrl() ?>/search" method="get">
-    <input type="text" class="text" value="<?= $this->translate('Search')?>" name="term" id="term"/>
-    <input type="submit" class="submit" value="<?= $this->translate('Search')?>" />
+  <form action="<?= $this->baseUrl() ?>/search" method="get" id="search_form">
+    <input type="text" class="text" value="<?= $this->translate('Search')?>" name="term" id="s" class="swap_value"/>
+    <input type="hidden" class="submit" value="<?= $this->translate('Search')?>" />
   </form>
-  </div>
+  
