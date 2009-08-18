@@ -17,9 +17,14 @@ class IndexController extends Ifphp_SyndicateController
      */
     public function indexAction()
     {
+        $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
+        $limit = 5;
         $posts = new Posts();
-        $this->view->posts = $posts->getRecent(1,10);
-        $this->view->paginator = Zend_Paginator::factory(10);
+        $this->view->posts = $posts->getRecent($page,$limit);
+        $total = $posts->getRecent($page, 0,true)->total;
+        $this->view->paginator = Zend_Paginator::factory($total);
+        $this->view->paginator->setCurrentPageNumber($page);
+        $this->view->paginator->setItemCountPerPage($limit);
     }
     
     /**

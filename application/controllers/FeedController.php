@@ -136,7 +136,7 @@ class FeedController extends Zend_Controller_Action
                 }
     			
     			
-    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/ping-back/'.$feed->token);
+    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/feed/ping-back/'.$feed->token);
     			$this->_redirect('/feed/view/'.$feed->slug);
     			//TODO send out some kind of confirmation email as well with a bit of instructions
     			
@@ -293,14 +293,14 @@ class FeedController extends Zend_Controller_Action
         $tdate = $feedSource->current()->getDateModified();
         $tdate = new Zend_Date($tdate);
 
-        while ($feedSource->valid() && $tdate->toValue() > $feed->lastPing)
+        while ($feedSource->valid() && $tdate->toValue() > $feed->lastPing && !$posts->getByLink($feedSource->current()->getPermaLink()))
         {
             $tdate = $feedSource->current()->getDateModified();
             $tdate = new Zend_Date($tdate);
 
             $defaultFilterChain = new Zend_Filter();
             $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
-            $defaultFiilterChain->addFilter(new Zend_Filter_StringTrim());
+            $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
             $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
 
             $post = $posts->createRow();

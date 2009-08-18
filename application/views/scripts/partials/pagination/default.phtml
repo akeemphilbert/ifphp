@@ -5,8 +5,6 @@
   <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
     &lt; Previous
   </a> |
-<?php else: ?>
-  <span class="disabled">&lt; Previous</span> |
 <?php endif; ?>
 
 <!-- Numbered page links -->
@@ -25,8 +23,6 @@
   <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
     Next &gt;
   </a>
-<?php else: ?>
-  <span class="disabled">Next &gt;</span>
 <?php endif; ?>
 </div>
 <?php endif; ?>

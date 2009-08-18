@@ -2,3 +2,4 @@
 <?php foreach ($this->posts as $post):?>
 <?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
+<?= $this->paginator;?>
