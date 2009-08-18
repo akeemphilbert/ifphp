@@ -84,6 +84,7 @@ class FeedController extends Zend_Controller_Action
     		$users = new Users();
     		$user = $users->createRow();
     		$user->email = $form->email->getValue();
+            $user->fullName = $form->fullname->getValue();
     		$user->username = 'temporaryusername'; //TODO put real username here eventually
     		$user->password = '';
     		$user->roleId = Role::SUBMITTER;
@@ -115,7 +116,7 @@ class FeedController extends Zend_Controller_Action
                 $feed->categoryId = $form->category->getValue();
                 $feed->languageId = $form->language->getValue();
                 $feed->siteUrl = $form->siteUrl->getValue();
-                $feed->statusId = Status::ACTIVE;
+                $feed->statusId = Status::ACTIVE; //TODO this should be pending until activated
                 $feed->userId = $user->id;
                 $feed->refreshRate = 120;//TODO this is sometimes stored in the feed
                 $feed->save();
@@ -136,9 +137,15 @@ class FeedController extends Zend_Controller_Action
                 }
     			
     			
-    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/feed/ping-back/'.$feed->token);
-    			$this->_redirect('/feed/view/'.$feed->slug);
-    			//TODO send out some kind of confirmation email as well with a bit of instructions
+//    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/feed/ping-back/'.$feed->token);
+
+                $email = new Zend_Mail();
+                $email->setFrom('support@ifphp.com', 'IFPHP'); //TODO this should be in the config
+                $email->addTo($user->email, $user->fullName);
+                $email->setBodyHtml($this->renderScript('email/submit-thank-you'));
+                $email->send();
+
+                $this->_forward('submit-thank-you');
     			
     		}
     		catch (Zend_Feed_Exception $error)
@@ -151,6 +158,28 @@ class FeedController extends Zend_Controller_Action
     	
     	$this->view->form = $form;
     	
+    }
+
+    /**
+     * Activate feed
+     * 
+     * @todo finish write this functionality
+     */
+    public function activateAction()
+    {
+        $token = Zend_Filter::filterStatic($this->getRequest()->getParam('token'), 'Alnum');
+
+        $feeds = new Feeds();
+        $feed = $feeds->getByToken($tokens);
+        $feed->statusId = Status::ACTIVE;
+        $feed->save();
+
+        $this->_redirect('/feed/view/'.$feed->slug);
+    }
+
+    public function submitThankYouAction()
+    {
+        
     }
     
     /**

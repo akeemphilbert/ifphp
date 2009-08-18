@@ -84,7 +84,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     
     /**
      * This is where we set up the locale and set the translation adapters
-     * 
+     * @deprecate this could be set in the site.ini using resoruces
      * @return void
      */
     protected function _initLocale()
@@ -118,7 +118,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     
     /**
      * This is where we set up the routes
-     * 
+     * @deprecated this could be set in the site.ini
      * @return void
      */
     protected function _initRoutes(){

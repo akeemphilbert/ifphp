@@ -2,6 +2,7 @@
 /**
  * Custom FrontController resource
  *
+ * @deprecated 08/18/09
  * @author Akeem Philbert <akeemphilbert@gmail.com>
  * @copyright IFPHP (c) 2009
  */
