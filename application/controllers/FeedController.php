@@ -48,21 +48,7 @@ class FeedController extends Zend_Controller_Action
     
     public function indexAction()
     {
-    	$feeds = new Feeds();
-    	$categories = new Categories();
-    	$cats = $categories->getAll();
-    	
-    	$this->view->feeds = $feeds->getAll();
-    	
-    	$FeedsByCategory = array();
-    	
-    	foreach($cats as $cat )
-    		$FeedsByCategory[$cat->title] = $feeds->getByCategory($cat->id);
-    		
-    	$this->view->feedsByCategory = $FeedsByCategory;
-    	
-    	$this->view->categories = $cats;
-    	
+    	$this->_forward('list');
     }
 	
     /**
@@ -233,7 +219,20 @@ class FeedController extends Zend_Controller_Action
     
     public function listAction()
     {
-    	
+    	$feeds = new Feeds();
+    	$categories = new Categories();
+    	$cats = $categories->getAll();
+
+    	$this->view->feeds = $feeds->getAll();
+
+    	$FeedsByCategory = array();
+
+    	foreach($cats as $cat )
+    		$FeedsByCategory[$cat->title] = $feeds->getByCategory($cat->id);
+
+    	$this->view->feedsByCategory = $FeedsByCategory;
+
+    	$this->view->categories = $cats;
     }
 
     /**

@@ -1,8 +1,11 @@
 <?php
 /**
- * 
- * @author Albert Rosa
+ * Website bootstrap
  *
+ * @author Albert Rosa <rosaalbert@gmail.com>
+ * @author Akeem Philbert <akeemphilbert@gmail.com>
+ *
+ * @copyright IFPHP (c) 2009
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -21,50 +24,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             array(
                 'Ifphp' => array(
                     'namespace' => 'Ifphp',
-                    'path' => APPLICATIONPATH.'/../library'
+                    'path' => APPLICATION_PATH.'/../library'
                 )
             )
         );
         return $autoloader;
 		
-	}	
-	
-	/**
-	 * Added page caching to the site
-	 * (non-PHPdoc)
-	 * @see library/Zend/Application/Bootstrap/Zend_Application_Bootstrap_Bootstrap#run()
-	 */
-	public function run(){
-		$this->setupCache();
-		
-		parent::run();
-			
 	}
-	
-	/**
-	 * Run custom setup functions. This was abstracted from run for Unit Testing purposes
-	 * NOTE: order is important loggers must be before locale due to logging locale errors 
-	 * @return void
-	 */
-	protected function _bootstrap($resource=null)
-	{
-		parent::_bootstrap($resource);
-
-		$this->setupLoggers();
-		$this->setUpLocale();	
-		$this->setupRoutes();
-		$this->setupIdentity();
-		$this->setupViewHelpers();		
-	}
-	
+    
 	/**
 	 * This is where we set up the caching for the applcation
 	 * 
-	 * @todo currently the memcachedoptions are not working 
+	 * @todo currently the memcachedoptions are not working. thsi could be reconfigured as a bootstrap resource
 	 * 
 	 * @return void
 	 */
-	private function setupCache()
+	protected function _initCache()
     {	
     	$config  = new Zend_Config_Xml(APPLICATION_PATH.'/configs/cache.xml',APPLICATION_ENV );
     	
@@ -77,13 +52,35 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $cache->start();
         
     }
+
+    /**
+     * Here we set the loggers for logging errors
+     * @todo add zend_log_writer_email
+     * @return void
+     */
+    protected function _initLog(){
+    	$config  = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV );
+    	$today = Zend_Date::now();
+
+    	$writer = new Zend_Log_Writer_Stream($config->log->location.$today->get('M_d_Y').'.txt');
+
+    	$fbug = new Zend_Log_Writer_Firebug();
+
+    	$logger = new Zend_Log($writer);
+//    	$logger = new Zend_Log($fbug);
+    	$logger->addWriter($fbug);
+
+    	Zend_Registry::set('logger',$logger);
+
+
+    }
     
     /**
      * This is where we set up the locale and set the translation adapters
      * 
      * @return void
      */
-    private function setUpLocale()
+    protected function _initLocale()
     {
     	//this is the locale		
 		try {
@@ -117,7 +114,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * 
      * @return void
      */
-    private function setupRoutes(){
+    protected function _initRoutes(){
     	$config  = new Zend_Config_Ini(APPLICATION_PATH.'/configs/routes.ini',APPLICATION_ENV );
 		$router = new Zend_Controller_Router_Rewrite();
 		$router->addConfig($config, 'routes');
@@ -126,35 +123,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$controller->setRouter($router);
     }
     
-    
-    /**
-     * Here we set the loggers for logging errors
-     * @todo add zend_log_writer_email 
-     * @return void
-     */
-    private function setupLoggers(){
-    	$config  = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV );
-    	$today = Zend_Date::now(); 
-    	
-    	$writer = new Zend_Log_Writer_Stream($config->log->location.$today->get('M_d_Y').'.txt');
-
-    	$fbug = new Zend_Log_Writer_Firebug();
-    	
-    	$logger = new Zend_Log($writer);
-//    	$logger = new Zend_Log($fbug);
-    	$logger->addWriter($fbug);
-    	
-    	Zend_Registry::set('logger',$logger);
-    	
-    		
-    }
-    
     /**
      * Setup the user session
      * 
      * @return void
      */
-    public function setupIdentity()
+    protected function _initIdentity()
     {
     	Zend_Session::start();
     }
@@ -164,14 +138,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * 
      * @return void
      */
-    public function setupViewHelpers(){
+    protected function _initViewHelpers(){
     	$view = new Zend_View();
 		$view->addHelperPath(APPLICATION_PATH . "/views/helpers/", "Ifphp_View_Helper");
 		
 		$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 		$viewRenderer->setView($view);
 		Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-    	
+    }
+
+    /**
+     * Setup default pagination options
+     */
+    protected function _initPagination()
+    {
+        Zend_Paginator::setDefaultScrollingStyle('Sliding');
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial('partials/pagination/default.phtml');
     }
     
 }

@@ -23,7 +23,10 @@ class SearchController extends Zend_Controller_Action
         }
     }
     
-    
+    /**
+     * Buld search index
+     * @todo this should be a command line thing
+     */
     public function buildAction(){
     	// Create index
     	$config  = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV );

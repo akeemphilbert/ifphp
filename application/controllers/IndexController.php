@@ -19,6 +19,7 @@ class IndexController extends Ifphp_SyndicateController
     {
         $posts = new Posts();
         $this->view->posts = $posts->getRecent(1,10);
+        $this->view->paginator = Zend_Paginator::factory(10);
     }
     
     /**
