@@ -18,6 +18,7 @@
  */
 require_once 'Ifphp/core/AbstractModel.php';
 require_once 'Ifphp/dtos/Post.php';
+require_once 'Ifphp/dtos/Status.php';
 
 /**
  * This class contains all the db interactions for the Posts
@@ -36,11 +37,21 @@ class Posts extends AbstractModel
      * @param integer $limit
      * @return Zend_Db_Table_Rowset
      */
-    public function getByFeedId($feedId,$page=1,$limit=0)
+    public function getByFeedId($feedId,$page=1,$limit=0,$isCount=false)
     {
-            $select = $this->select();
-            $select->where('feedId = ?',$feedId);
-            return $this->fetchAll($select,$page,$limit);
+        $select = $this->select();
+        $select->where('feedId = ?',$feedId);
+        $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl');
+
+        $select->from('posts',$columns);
+        $select->setIntegrityCheck(false);
+        $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
+        $select->where('feeds.statusId = ?',Status::ACTIVE);
+        
+        if ($limit)
+        $select->limitPage($page, $limit);
+        return $isCount ? $this->fetchRow($select,null,1,0) : $this->fetchAll($select);
     }
 
     /**
@@ -49,13 +60,20 @@ class Posts extends AbstractModel
      * @param integer $page
      * @param integer $limit
      */
-    public function getRecent($page=1,$limit=0)
+    public function getRecent($page=1,$limit=0,$isCount=false)
     {
-        $select = $this->select()->setIntegrityCheck(false);
-        $select->from('posts');
-        $select->join('feeds','feeds.id = posts.feedId',array('feedTitle'=>'title','siteUrl'));
+        $select = $this->select();
+        $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl');
+        $select->from('posts',$columns);
+
+        $select->setIntegrityCheck(false);
+        $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
+        $select->where('feeds.statusId = ?',Status::ACTIVE);
         $select->order('posts.publishDate DESC');
-        return $this->fetchAll($select,$page,$limit);
+        if ($limit)
+        $select->limitPage($page, $limit);
+        return $isCount ? $this->fetchRow($select,null,1,0) : $this->fetchAll($select);
     }
 
     /**
@@ -66,16 +84,32 @@ class Posts extends AbstractModel
      * @param integer $limit
      * @return Zend_Db_Table_Rowset
      */
-    public function getByCategory($category,$page=1,$limit=0)
+    public function getByCategory($category,$page=1,$limit=0,$isCount=false)
     {
         $select = $this->select()->setIntegrityCheck(false);
-        $select->from('posts');
-        $select->join('feeds','feeds.id = posts.feedId',array('feedTitle'=>'title','siteUrl'));
+        $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl');
+        $select->from('posts',$columns);
+        $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
+        $select->where('feeds.statusId = ?',Status::ACTIVE);
         $select->join('categories','categories.id = feeds.categoryId',array());
         $select->where('categories.id = ?',$category);
         $select->order('posts.publishDate DESC');
-//        echo $select;
-//        die();
-        return $this->fetchAll($select,$page,$limit);
+        if ($limit)
+        $select->limitPage($page, $limit);
+        return $isCount ? $this->fetchRow($select,null,1,0) : $this->fetchAll($select);
+    }
+
+    /**
+     * Get feed by link
+     *
+     * @param string $link
+     * @return Post
+     */
+    public function getByLink($link)
+    {
+        $select = $this->select();
+        $select->where('link = ?',$link);
+        return $this->fetchRow($select);
     }
 }

@@ -1,11 +1,8 @@
 <?php foreach ($this->messages as $message):?>
 <div class="notice"><?=$message ?></div>
 <?php endforeach;?>
-<h1><?=$this->feed->title?></h1>
-<div>
-<ul>
+<h3><?=$this->feed->title;?> - <a href="<?=$this->baseUrl(); ?>/?format=rss" class="alt">RSS &raquo;</a></h3>
 <?php foreach ($this->posts as $post):?>
-<li><a href="<?=$post->link?>"><?=$post->title ?></a></li>
+<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
-</ul>
-</div>
+<?= $this->paginator;?>

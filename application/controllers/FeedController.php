@@ -48,21 +48,7 @@ class FeedController extends Zend_Controller_Action
     
     public function indexAction()
     {
-    	$feeds = new Feeds();
-    	$categories = new Categories();
-    	$cats = $categories->getAll();
-    	
-    	$this->view->feeds = $feeds->getAll();
-    	
-    	$FeedsByCategory = array();
-    	
-    	foreach($cats as $cat )
-    		$FeedsByCategory[$cat->title] = $feeds->getByCategory($cat->id);
-    		
-    	$this->view->feedsByCategory = $FeedsByCategory;
-    	
-    	$this->view->categories = $cats;
-    	
+    	$this->_forward('list');
     }
 	
     /**
@@ -98,6 +84,7 @@ class FeedController extends Zend_Controller_Action
     		$users = new Users();
     		$user = $users->createRow();
     		$user->email = $form->email->getValue();
+                $user->fullName = $form->fullname->getValue();
     		$user->username = 'temporaryusername'; //TODO put real username here eventually
     		$user->password = '';
     		$user->roleId = Role::SUBMITTER;
@@ -118,6 +105,7 @@ class FeedController extends Zend_Controller_Action
                 $feed = $feeds->createRow();
                 $feed->token = md5(uniqid($user->id));
                 $feed->url = $defaultFilterChain->filter($form->url->getValue());
+                
                 $feed->title = $defaultFilterChain->filter($feedSource->getTitle());
                 $inflector = new Zend_Filter_Inflector(':title');
                 $inflector->setRules(array(
@@ -129,10 +117,11 @@ class FeedController extends Zend_Controller_Action
                 $feed->categoryId = $form->category->getValue();
                 $feed->languageId = $form->language->getValue();
                 $feed->siteUrl = $form->siteUrl->getValue();
-                $feed->statusId = Status::ACTIVE;
+                $feed->statusId = Status::PENDING;
                 $feed->userId = $user->id;
                 $feed->refreshRate = 120;//TODO this is sometimes stored in the feed
                 $feed->save();
+
 
                 //parse feed
                 $posts = new Posts();
@@ -150,21 +139,53 @@ class FeedController extends Zend_Controller_Action
                 }
     			
     			
-    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/ping-back/'.$feed->token);
-    			$this->_redirect('/feed/view/'.$feed->slug);
-    			//TODO send out some kind of confirmation email as well with a bit of instructions
+//    			$this->_flashMessenger->addMessage('Your feed has been added to the site. Your ping back url is http://ifphp.com/feed/ping-back/'.$feed->token);
+
+                $this->view->activationLink = 'feed/activation/'.$feed->token;
+                $this->view->pingbackLink = 'feed/ping-back/'.$feed->token;
+
+                $email = new Zend_Mail();
+                $email->setSubject('IFPHP Feed Submission Confirmation');
+                $email->setFrom(Zend_Registry::getInstance()->mailAccounts['support']);
+                $email->addTo($user->email, $user->fullName);
+                $email->setBodyHtml($this->view->render('email/submit-thank-you.phtml'));
+                $email->send();
+
+                $this->_forward('submit-thank-you');
     			
     		}
     		catch (Zend_Feed_Exception $error)
     		{
     			$form->url->markAsError();
-                Zend_Registry::getInstance()->logger->err($error);
+                        Zend_Registry::getInstance()->logger->err($error);
     			return;
     		}
     	}
     	
     	$this->view->form = $form;
     	
+    }
+
+    /**
+     * Activate feed
+     * 
+     * 
+     */
+    public function activateAction()
+    {
+        $token = Zend_Filter::filterStatic($this->getRequest()->getParam('token'), 'Alnum');
+
+        $feeds = new Feeds();
+        $feed = $feeds->getByToken($token);
+        $feed->statusId = Status::ACTIVE;
+        $feed->save();
+
+        $this->_redirect('/feed/view/'.$feed->slug);
+    }
+
+    public function submitThankYouAction()
+    {
+        
     }
     
     /**
@@ -181,11 +202,19 @@ class FeedController extends Zend_Controller_Action
     	//get feedinfo
     	$feeds = new Feeds();
     	$this->view->feed = $feeds->getBySlug($id);
+        if (!$this->view->feed)
+        throw new Zend_Exception('Feed doesn\'t exist');
         $this->view->feed->views++;
         $this->view->feed->save();
     	//get posts
+        $limit = 5;
+        $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
     	$posts = new Posts();
-    	$this->view->posts = $posts->getByFeedId($this->view->feed->id);
+    	$this->view->posts = $posts->getByFeedId($this->view->feed->id,$page,$limit);
+        $total = $posts->getByFeedId($this->view->feed->id,$page, 0,true)->total;
+        $this->view->paginator = Zend_Paginator::factory($total);
+        $this->view->paginator->setCurrentPageNumber($page);
+        $this->view->paginator->setItemCountPerPage($limit);
     	//TODO add pagination
     }
 
@@ -233,7 +262,20 @@ class FeedController extends Zend_Controller_Action
     
     public function listAction()
     {
-    	
+    	$feeds = new Feeds();
+    	$categories = new Categories();
+    	$cats = $categories->getAll();
+
+    	$this->view->feeds = $feeds->getAll();
+
+    	$FeedsByCategory = array();
+
+    	foreach($cats as $cat )
+    		$FeedsByCategory[$cat->title] = $feeds->getByCategory($cat->id);
+
+    	$this->view->feedsByCategory = $FeedsByCategory;
+
+    	$this->view->categories = $cats;
     }
 
     /**
@@ -294,14 +336,14 @@ class FeedController extends Zend_Controller_Action
         $tdate = $feedSource->current()->getDateModified();
         $tdate = new Zend_Date($tdate);
 
-        while ($feedSource->valid() && $tdate->toValue() > $feed->lastPing)
+        while ($feedSource->valid() && $tdate->toValue() > $feed->lastPing && !$posts->getByLink($feedSource->current()->getPermaLink()))
         {
             $tdate = $feedSource->current()->getDateModified();
             $tdate = new Zend_Date($tdate);
 
             $defaultFilterChain = new Zend_Filter();
             $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
-            $defaultFiilterChain->addFilter(new Zend_Filter_StringTrim());
+            $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
             $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
 
             $post = $posts->createRow();
