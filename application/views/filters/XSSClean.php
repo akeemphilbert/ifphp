@@ -56,6 +56,8 @@ class Ifphp_Filter_XSSClean implements Zend_Filter_Interface
 										"vbscript\s*:"				=> '[removed]', // IE, surprise!
 										"Redirect\s+302"			=> '[removed]'
 									);
+        protected $xss_hash = '';
+        
     public function filter($value)
     {
         return $this->xss_clean($value);
