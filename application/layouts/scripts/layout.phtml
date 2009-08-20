@@ -3,42 +3,60 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php $this->headTitle()->setSeparator(' - ')?>
-<?= $this->headTitle('IFPHP');?>
+<?= $this->headTitle('If PHP');?>
 <!-- Framework CSS -->
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/fancy-type/screen.css','screen, projection'); ?>
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/blueprint/ie.css','screen, projection',	'lt IE 8'); ?>
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/print.css',	'print'); ?>
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/screen.css','screen, projection'); ?>
+
+<!-- RSS FEED-->
+<?php $this->headLink()->appendAlternate($this->baseUrl().'?format=rss', 'application/rss+xml', 'IfPHP RSS FEED'); ?>
+
+<!-- META DATA -->
+<?php $this->headMeta()->appendName('keywords', $this->keywords? $this->keywords: 'ifphp, support, zend, php, code igniter'); ?>
+<?php $this->headMeta()->appendName('Description', $this->description? $this->keywords:'PHP news agragator.IfPHP is a web news reader and browser which provides access to a news content from different sources:.'); ?>
+
+<?= $this->headMeta()?>
 <?= $this->headLink() ?>
 <?= $this->headScript() ?>
-</head>
+
+</head>  
 <body>
 <div class="container">
-  <h1><a href="/">if(Php){</a></h1>
-  <?= $this->partial('/partials/html/search.phtml')?>
-  <hr />
-  <h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating')?> 1000 <?= $this->translate('feeds');?></h2>
-  <hr />
+<div class="header">
+  <h1><a href="#" title="">ifphp</a></h1>
+  <div class="search">
+		<h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating')?> 1000 <?= $this->translate('feeds');?></h2>
+      <div id="search_box">
+        <?= $this->partial('/partials/html/search.phtml')?>        
+      </div>
+      <p><a href="#" title="">Advanced Search</a></p>
+  </div>
+  
   <?= $this->partial('/partials/html/navigation.phtml')?>
   <hr />
   <hr class="space" />
   <div class="content colborder">
-  <?php /*?>  
-<? */?>
 <?= $this->layout()->content ?>
 </div>
-  <div class="sidebar last">
+  <div class="sidebar">
     <?= $this->action('list','category') ?>
+    <hr />    
+    <?= $this->action('languages','module') ?>    
+  	<div class="follow-us">
+  		<a href="http://www.twitter.com/ifphp" title=""><img src="<?= $this->baseUrl()?>/imgs/layout/global/iphp_followus.png" alt="Follow ifphp on Twitter" /></a>
+  	</div>
+  </div>
+  	<div class="sidebar last">
+  	<?= $this->action('smart','category') ?>
     <hr />
     <?= $this->action('recently-updated','feed') ?>
     <hr />
-    <?= $this->action('popular','feed') ?>
-    
-    <hr />
-    <?= $this->action('languages','module') ?>
-        
-  </div>
-    <?= $this->partial('/partials/html/footer.phtml') ?>    
+    <?= $this->action('popular','feed') ?>    
+  </div>        
 </div>
+</div>
+<?= $this->partial('/partials/html/footer.phtml') ?>
 </body>
 </html>

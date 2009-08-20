@@ -19,12 +19,27 @@ class CategoryController extends Zend_Controller_Action
 
         $posts = new Posts();
         $this->view->posts = $posts->getByCategory($this->view->category->id);
+        
+        $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->categpry->title));
+        
 
         //TODO add paging
     }
 
     public function listAction()
     {
+        //setup the available categories
+    	$categories = new Categories();
+    	$this->view->categories = $categories->getAll();
+    }
+    
+    /**
+     * This is where the smart categores get displayed
+     * @todo define how smart categores and ordered and searched
+     * @return unknown_type
+     */
+    public function smartAction()
+    {    	
         //setup the available categories
     	$categories = new Categories();
     	$this->view->categories = $categories->getAll();

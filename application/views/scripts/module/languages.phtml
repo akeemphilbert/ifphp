@@ -1,5 +1,6 @@
  <div class="languages">
     <h4><?= $this->translate('Languages')?></h4>
+    <div class="hr dotted"><hr /></div>
         <ul>
         	<?php foreach($this->languages as $language):?>
             <li><a href="<?= $this->baseUrl()?>/language/view/id/<?= $language->id?>"><?= $language->title?></a></li>
