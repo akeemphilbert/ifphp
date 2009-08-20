@@ -27,7 +27,7 @@
 <div class="header">
   <h1><a href="#" title="">ifphp</a></h1>
   <div class="search">
-		<h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating')?> 1000 <?= $this->translate('feeds');?></h2>
+		<h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating') ?> <?=$this->feedCount() ?> <?= $this->translate('feeds')?></h2>
       <div id="search_box">
         <?= $this->partial('/partials/html/search.phtml')?>        
       </div>
