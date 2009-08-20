@@ -11,6 +11,7 @@ class Ifphp_Application_Resource_Siteinfo extends Zend_Application_Resource_Reso
     {
         foreach ($this->getOptions() as $index=>$value)
         {
+            Zend_Registry::set('siteinfo', new stdClass());
             Zend_Registry::getInstance()->siteinfo->$index = $value;
         }
     }

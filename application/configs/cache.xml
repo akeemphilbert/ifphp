@@ -15,6 +15,7 @@
 					<regexps></regexps>				
 				</options>	
 			</frontend>
+                        <!--
 			<backend>
 				<name>Memcached</name>
 				<options>
@@ -30,6 +31,13 @@
 					</servers>
 					<compression>false</compression>
 					<compatability>false</compatability>
+				</options>
+			</backend>-->
+                        <backend>
+				<name>File</name>
+				<options>
+					<cache_dir>/tmp/</cache_dir>
+					<file_name_prefix>ifphp_cache_</file_name_prefix>
 				</options>
 			</backend>
 		</cache>

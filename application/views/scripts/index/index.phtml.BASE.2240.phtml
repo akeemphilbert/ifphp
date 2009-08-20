@@ -20,9 +20,13 @@
 
 
 <?php foreach ($this->posts as $post):?>
+<<<<<<< Temporary merge branch 1:application/views/scripts/index/index.phtml
 	<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
+=======
+<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
+>>>>>>> Temporary merge branch 2:application/views/scripts/index/index.phtml
 <?php endforeach;?>
-
+<<<<<<< Temporary merge branch 1:application/views/scripts/index/index.phtml
 
 <div id="posts-footer" class="utilities">
         <!--PAGINATION-->      
@@ -37,3 +41,6 @@
 		</div>
         <!-- END TRANSLATION SELECTOR-->
         </div>
+=======
+<?= $this->paginator;?>
+>>>>>>> Temporary merge branch 2:application/views/scripts/index/index.phtml
