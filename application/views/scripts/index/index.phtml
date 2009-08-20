@@ -5,8 +5,7 @@
         <div class="hr dotted"><hr /></div>
         <div class="utilities">
         <!--PAGINATION-->      
-         <?= $this->paginationControl($this->paginator, 'Sliding', '/partials/paginator/list.phtml'); ?>  
-              <?= $this->paginator?>
+        <?= $this->paginator?>
         <!--END PAGINATION-->
         <!--TRANSLATION SELECTOR-->
         <div class="translation-selector">
@@ -22,5 +21,7 @@
 <?php foreach ($this->posts as $post):?>
 	<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
+<div class="utilities">
 <?= $this->paginator;?>
+</div>
 

@@ -57,7 +57,8 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
         $allFeeds = $feeds->getAll();
         
         if($isCount)
-        return $allFeeds->count(). 'feeds would have been added to blog index';
+        echo $allFeeds->count(). 'feeds would have been added to blog index';
+        exit;
 
         foreach($allFeeds as $feed)
         {
@@ -85,7 +86,8 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
         $allPosts = $posts->getRecent(1,0);
 
         if ($isCount)
-        return $allPosts->count().' posts would have been added to the post index';
+        echo $allPosts->count().' posts would have been added to the post index';
+        exit;
 
         foreach($allPosts as $post)
         {
