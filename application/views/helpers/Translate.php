@@ -1,4 +1,11 @@
 <?php
+/**
+ * View Helper to translate static text
+ *
+ * @author Albert Rosa <rosalbert@gmail.com>
+ * @copyright IFPHP (c) 2009
+ */
+
 class Ifphp_View_Helper_Translate extends Zend_View_Helper_Abstract{
 	
 	
