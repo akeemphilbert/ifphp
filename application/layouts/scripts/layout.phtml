@@ -9,15 +9,25 @@
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/blueprint/ie.css','screen, projection',	'lt IE 8'); ?>
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/print.css',	'print'); ?>
 <?php $this->headLink()->prependStylesheet(	$this->baseUrl() .'/css/screen.css','screen, projection'); ?>
+
+<!-- RSS FEED-->
+<?php $this->headLink()->appendAlternate($this->baseUrl().'?format=rss', 'application/rss+xml', 'IfPHP RSS FEED'); ?>
+
+<!-- META DATA -->
+<?php $this->headMeta()->appendName('keywords', $this->keywords? $this->keywords: 'ifphp, support, zend, php, code igniter'); ?>
+<?php $this->headMeta()->appendName('Description', $this->description? $this->keywords:'PHP news agragator.IfPHP is a web news reader and browser which provides access to a news content from different sources:.'); ?>
+
+<?= $this->headMeta()?>
 <?= $this->headLink() ?>
 <?= $this->headScript() ?>
+
 </head>  
 <body>
 <div class="container">
 <div class="header">
   <h1><a href="#" title="">ifphp</a></h1>
   <div class="search">
-		<h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating')?> 1000 <?= $this->translate('feeds');?></h2>
+		<h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating') ?> <?=$this->feedCount() ?> <?= $this->translate('feeds')?></h2>
       <div id="search_box">
         <?= $this->partial('/partials/html/search.phtml')?>        
       </div>
@@ -35,7 +45,7 @@
     <hr />    
     <?= $this->action('languages','module') ?>    
   	<div class="follow-us">
-  		<a href="#" title=""><img src="<?= $this->baseUrl()?>/imgs/layout/global/iphp_followus.png" alt="Follow ifphp on Twitter" /></a>
+  		<a href="http://www.twitter.com/ifphp" title=""><img src="<?= $this->baseUrl()?>/imgs/layout/global/iphp_followus.png" alt="Follow ifphp on Twitter" /></a>
   	</div>
   </div>
   	<div class="sidebar last">

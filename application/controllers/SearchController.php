@@ -17,10 +17,8 @@ class SearchController extends Zend_Controller_Action
         	
 
 			$this->view->results = $index->find($this->view->term);
-
-			
-        	 	
         }
+        $this->view->keywords = implode('', array('ifphp','news aggragator','search,'.$this->view->term));
     }
     
     /**

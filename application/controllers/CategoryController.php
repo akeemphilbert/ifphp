@@ -19,6 +19,9 @@ class CategoryController extends Zend_Controller_Action
 
         $posts = new Posts();
         $this->view->posts = $posts->getByCategory($this->view->category->id);
+        
+        $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->categpry->title));
+        
 
         //TODO add paging
     }

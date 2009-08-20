@@ -11,7 +11,7 @@ class PostController extends Zend_Controller_Action
 	 */
 	public function viewAction()
 	{
-		
+		$this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->term));
 	}
 
     public function recentAction()

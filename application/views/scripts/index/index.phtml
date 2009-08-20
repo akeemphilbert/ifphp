@@ -22,6 +22,19 @@
 	<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
 <div class="utilities">
-<?= $this->paginator;?>
 </div>
 
+
+<div id="posts-footer" class="utilities">
+        <!--PAGINATION-->      
+              <?= $this->paginator?>
+        <!--END PAGINATION-->
+        <!--TRANSLATION SELECTOR-->
+        <div class="translation-selector">
+            <select name="translate">
+                <option selected="selected">Translate</option>
+                <option>English</option>
+            </select>
+		</div>
+        <!-- END TRANSLATION SELECTOR-->
+        </div>
