@@ -219,10 +219,7 @@ class FeedController extends Zend_Controller_Action
         $this->view->paginator->setItemCountPerPage($limit);
          
          $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->feed->title));
-         $this->view->description = 'ifPHP, The PHP news Aggragator: '. $this->view->feed->descripiton;
-         
-         
-    	//TODO add pagination
+         $this->view->description = 'ifPHP, The PHP news Aggragator: '. $this->view->feed->description;
     }
 
     /**

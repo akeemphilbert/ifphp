@@ -10,13 +10,15 @@ class SearchController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        if($term = $this->getRequest()->getParam('term')){
-        	$this->view->term =$term;
-        	$config  = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV );
-			$index = Zend_Search_Lucene::open($config->search->feeds);
-        	
-
-			$this->view->results = $index->find($this->view->term);
+        if($term = $this->getRequest()->getParam('term'))
+        {
+            $this->view->term =$term;
+            $index = Zend_Search_Lucene::open('/tmp/feed');
+            $this->view->results = $index->find($this->view->term);
+        }
+        else
+        {
+            $this->view->results = array();
         }
         $this->view->keywords = implode('', array('ifphp','news aggragator','search,'.$this->view->term));
     }

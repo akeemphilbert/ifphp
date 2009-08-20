@@ -17,25 +17,17 @@ class IndexController extends Ifphp_SyndicateController
      */
     public function indexAction()
     {
-        $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
         $limit = 5;
-        $posts = new Posts();
-        $post = $this->view->posts = $posts->getRecent(1,10);      
-        //
-        $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->term));
-        
-        
-        //setting the pagination                      
-        $this->_getParam('page')?$this->_getParam('page'):1;
-                 
-        $paginator = Zend_Paginator::factory($this->view->posts);        
-		$paginator->setCurrentPageNumber($page);
-		$paginator->setPageRange(5);		
-		$paginator->setItemCountPerPage(10);
-					
-		Zend_Registry::get('logger')->info(count($paginator));	
-		$this->view->paginator = $paginator;
-		
+
+        $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
+    	$posts = new Posts();
+    	$this->view->posts = $posts->getRecent($page,$limit);
+        $total = $posts->getRecent($page, 0,true)->total;
+        $this->view->paginator = Zend_Paginator::factory($total);
+        $this->view->paginator->setCurrentPageNumber($page);
+        $this->view->paginator->setItemCountPerPage($limit);
+
+        $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->term));	
     }
     
     /**

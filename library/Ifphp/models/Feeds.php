@@ -16,6 +16,7 @@
  */
 require_once 'Ifphp/core/AbstractModel.php';
 require_once 'Ifphp/dtos/Feed.php';
+require_once 'Ifphp/dtos/Status.php';
 
 /**
  * This class contains all the db interactions for the Feed
