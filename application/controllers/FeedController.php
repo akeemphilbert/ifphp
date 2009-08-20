@@ -58,6 +58,8 @@ class FeedController extends Zend_Controller_Action
      */
     public function submitAction()
     {
+        $this->view->keywords = implode('', array('ifphp','news aggragator','submit rss feed'));
+            
     	$form = $this->getSubmitForm();
     	
     	//setup the available categories
@@ -215,6 +217,11 @@ class FeedController extends Zend_Controller_Action
         $this->view->paginator = Zend_Paginator::factory($total);
         $this->view->paginator->setCurrentPageNumber($page);
         $this->view->paginator->setItemCountPerPage($limit);
+         
+         $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->feed->title));
+         $this->view->description = 'ifPHP, The PHP news Aggragator: '. $this->view->feed->descripiton;
+         
+         
     	//TODO add pagination
     }
 
