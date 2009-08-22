@@ -169,7 +169,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initSearch()
     {
-        
+        Zend_Registry::getInstance()->search = $this->getOption('search');
     }
     
 }

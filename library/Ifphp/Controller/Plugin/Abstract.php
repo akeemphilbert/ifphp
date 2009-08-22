@@ -9,4 +9,5 @@
 class Ifphp_Controller_Plugin_Abstract extends Zend_Controller_Plugin_Abstract
 {
     public function addPost(Post $post, Feed $feed){}
+    public function addFeed(Feed $feed){}
 }

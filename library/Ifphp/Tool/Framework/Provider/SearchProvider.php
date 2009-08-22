@@ -49,7 +49,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
 
     protected function buildBlogSearch($isCount=false)
     {
-        $index = Zend_Search_Lucene::create('/tmp/feed');
+        $index = Zend_Search_Lucene::create(Zend_Registry::getInstance()->search->feed);
 
         require_once 'Ifphp/models/Feeds.php';
 
@@ -78,7 +78,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
 
     protected function buildPostSearch($isCount=false)
     {
-        $index = Zend_Search_Lucene::create('/tmp/post');
+        $index = Zend_Search_Lucene::create(Zend_Registry::getInstance()->search->post);
 
         require_once 'Ifphp/models/Posts.php';
 
@@ -125,6 +125,6 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
         require_once 'Zend/Application.php';
 
         $application = new Zend_Application(APPLICATION_ENV,APPLICATION_PATH . '/configs/application.ini');
-        $application->bootstrap()->bootstrap(array('db'));
+        $application->bootstrap()->bootstrap(array('db','search'));
     }
 }

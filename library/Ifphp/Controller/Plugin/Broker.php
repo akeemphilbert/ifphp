@@ -29,4 +29,22 @@ class Ifphp_Controller_Plugin_Broker extends Zend_Controller_Plugin_Broker
             }
        }
     }
+
+    public function addFeed(Feed $feed)
+    {
+        foreach ($this->_plugins as $plugin) {
+            if ($plugin instanceof Ifphp_Controller_Plugin_Abstract)
+            {
+                try {
+                    $plugin->addFeed($feed);
+                } catch (Exception $error) {
+                    if (Zend_Controller_Front::getInstance()->throwExceptions()) {
+                        throw $error;
+                    } else {
+                        $this->getResponse()->setException($error);
+                    }
+                }
+            }
+       }
+    }
 }
