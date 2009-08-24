@@ -25,6 +25,14 @@ class Feeds extends AbstractModel
 {
     protected $_name = 'feeds';
     protected $_rowClass = 'Feed';
+    protected $_dependentTables = array('Posts');
+    protected $_referenceMap = array(
+        'Categories'=>array(
+            'columns'   => 'categoryId',
+            'refTableClass' =>  'Categories',
+            'refColumns'    =>  'id'
+        )
+    );
 
     /**
      * Get all available categories

@@ -296,6 +296,11 @@ class FeedController extends Zend_Controller_Action
         $feeds = new Feeds();
         $this->view->feeds = $feeds->getPopular();
     }
+
+    public function resendActivationAction()
+    {
+        
+    }
     
     /**
      * Get submit form
@@ -306,8 +311,8 @@ class FeedController extends Zend_Controller_Action
     {
     	if (!$this->_submitForm)
     	{
-    		$config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/forms.ini');
-    		$this->_submitForm = new Zend_Form($config->feed->submit);
+            $config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/forms.ini');
+            $this->_submitForm = new Zend_Form($config->feed->submit);
     	}
     	
     	return $this->_submitForm;

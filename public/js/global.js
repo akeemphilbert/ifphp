@@ -11,5 +11,6 @@ var Main = {
             if($(this).val() =='')
                 $(this).val($(this).attr('initVal'));
         });
+
     }
 };

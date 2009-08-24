@@ -7,18 +7,14 @@
 		<tr><th>Category</th><th>OPML</th></tr>
 	</thead>
 	<tbody>
-		<?php foreach($this->categories as $cat):?>
+		<?php foreach($this->categories as $category):?>
 
 		<tr>
-			<td><?= $cat->title?></td>
+			<td><?= $category->title?></td>
 			<td>
-				<select id="feedByCategory" name="feedByCategory">
-					<?php foreach($this->feedsByCategory[$cat->title] as $feed):?>
-						<option value='<?= $feed->id?>'>
-							<?= $feed->title ?>
-						</option>
-					<?php endforeach;?>
-				</select>
+                            <div class="opml">
+                                <a href="<?=$this->baseUrl();?>/category/view/<?=$category->slug;?>" title="">OPML</a>
+                            </div>
 			</td>
 		</tr>
 		<?php endforeach;?>
@@ -28,7 +24,6 @@
 
 <table>
 
-	<caption>All Feeds</caption>
 	<thead>
 	<tr>
 		<th>Name</th>

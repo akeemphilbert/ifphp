@@ -18,7 +18,15 @@ class CategoryController extends Zend_Controller_Action
         $this->view->category = $categories->getBySlug($this->getRequest()->getParam('id'));
 
         $posts = new Posts();
-        $this->view->posts = $posts->getByCategory($this->view->category->id);
+
+        $limit = 5;
+        $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
+        $this->view->posts = $posts->getByCategory($this->view->category->id,$page,$limit);
+
+        $total = $posts->getByCategory($this->view->category->id,1,0,true)->total;
+        $this->view->paginator = Zend_Paginator::factory($total);
+        $this->view->paginator->setCurrentPageNumber($page);
+        $this->view->paginator->setItemCountPerPage($limit);
         
         $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->categpry->title));
         

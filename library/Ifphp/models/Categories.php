@@ -23,6 +23,7 @@ require_once 'Ifphp/core/AbstractModel.php';
  */
 class Categories extends AbstractModel{
 	protected $_name = 'categories';
+        protected $_dependentTables = array('Feeds');
 	
 	/**
 	 * Get all available categories

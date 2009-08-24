@@ -464,11 +464,11 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
     	foreach ($this->_indices as $index) {
     		$hits = $index->find($query);
 
-    		if ($indexShift != 0) {
-                foreach ($hits as $hit) {
-                    $hit->id += $indexShift;
-                }
-    		}
+//    		if ($indexShift != 0) {
+//                foreach ($hits as $hit) {
+//                    $hit->id += $indexShift;
+//                }
+//    		}
 
     		$indexShift += $index->count();
     		$hitsList[] = $hits;

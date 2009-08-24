@@ -37,12 +37,12 @@ li ul, li ol {margin:0;}
 ul, ol {margin:0;}
 ul {list-style-type:none;}
 ol {list-style-type:decimal;}
-dl {margin:0 0 1.5em 0;}
+dl {margin:1.5em 0 1.5em 0;}
 dl dt {font-weight:bold;}
 dd {margin-left:1.5em;}
 table {margin-bottom:1.4em;width:100%;}
 th {font-weight:bold;}
-thead th {background:#c3d9ff;}
+thead th {background:#FFC42B;}
 th, td, caption {padding:4px 10px 4px 5px;}
 tr.even td {background:#e5ecf9;}
 tfoot {font-style:italic;}
@@ -64,8 +64,8 @@ caption {background:#eee;}
 .box {padding:1.5em;margin-bottom:1.5em;background:#E5ECF9;}
 hr {background:#ddd;color:#ddd;clear:both;float:none;width:100%;height:.1em;margin:0 0 1.45em;border:none;}
 div.hr.dotted {
-	background:url(../imgs/layout/global/hr_div.gif) repeat-x 0 0;
-  	height: 4px;
+	background-color: #ffc42b;
+  	height: 2px;
 }
 .sidebar div.hr.dotted {
 	margin-bottom:13px;
@@ -115,7 +115,7 @@ body {background:url(../imgs/layout/header/bg.gif) repeat-x 0 0;}
 	background:url(../imgs/layout/header/search/vertical_divider.png) no-repeat 0 30px;
 	float:right; 
 	height:109px;
-	padding:20px 29px 0 25px;
+	padding:45px 29px 0 25px;
 	width:269px;
 }
 .header .search h2 {
@@ -280,6 +280,15 @@ body {background:url(../imgs/layout/header/bg.gif) repeat-x 0 0;}
 	top:-38px;
 	width:19px;
 }
+.content .opml a {
+	background:url(../imgs/layout/global/opml-icon-24x24.png) no-repeat 0 0;
+	display:block;
+	height:24px;
+	left:0;
+	text-indent:-2000em;
+	top:-38px;
+	width:24px;
+}
 .content .utilities {
 	margin-bottom:30px; 
 	float:left; 
@@ -357,7 +366,7 @@ body {background:url(../imgs/layout/header/bg.gif) repeat-x 0 0;}
 	width:213px;
 } 
 .sidebar a {font-size:12px;}
-.sidebar .categories, .sidebar .smart-categories, .sidebar .recently-updated-blogs, .sidebar .popular-blogs, .sidebar .languages{margin:0 0 1.45em}
+.sidebar .categories, .sidebar .smart-categories, .sidebar .recently-updated-blogs, .sidebar .popular-blogs, .sidebar .languages{margin:0 0 2.0em}
 .sidebar .follow-us {margin-top:57px}
 .footer {
 	background:#e5e5e5;
@@ -392,18 +401,22 @@ body {background:url(../imgs/layout/header/bg.gif) repeat-x 0 0;}
 
 
 /* forms */
-label {font-weight:bold;}
+label {font-size:1.25em;padding-left: 15px;float:left;color:#656565;font-weight:normal;}
+dt {float:left;padding:5px 1px 5px 1px;}
+dd {clear:both;}
 fieldset {padding:1.4em;margin:0 0 1.5em 0;border:1px solid #ccc;}
 legend {font-weight:bold;font-size:1.2em;}
 input[type=text], input[type=password], input.text, input.title, textarea, select {background-color:#fff;border:1px solid #bbb;}
 input[type=text]:focus, input[type=password]:focus, input.text:focus, input.title:focus, textarea:focus, select:focus {border-color:#666;}
-input[type=text], input[type=password], input.text, input.title, textarea, select {margin:0;}
+input[type=text], input[type=password], input.text, input.title, textarea, select {margin:0;line-height:1.5em;width:300px;}
 input.text, input.title {width:200px;padding:5px;}
 input.title {font-size:1.5em;}
 textarea {width:390px;height:250px;padding:5px;}
 input[type=checkbox], input[type=radio], input.checkbox, input.radio {position:relative;top:.25em;}
 form.inline {line-height:3;}
 form.inline p {margin-bottom:0;}
+ul.errors {padding-top:5px;}
+ul.errors li {color:red;}
 
 .error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
 .error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}

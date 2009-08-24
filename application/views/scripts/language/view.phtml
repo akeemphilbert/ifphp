@@ -1,6 +1,6 @@
-<h3><?=$this->category->title;?></h3>
+<h3><?=$this->language->title;?></h3>
 <div class="rss">
-    <a href="<?=$this->baseUrl();?>/category/view/<?=$this->category->slug; ?>/?format=rss" title="<?=$this->category->title;?>'s category feed">RSS</a>
+    <a href="<?=$this->baseUrl();?>/language/view/<?=$this->language->slug; ?>/?format=rss" title="<?=$this->language->title;?>'s language feed">RSS</a>
 </div>
 <div class="hr dotted"><hr /></div>
 <?= $this->paginator?>

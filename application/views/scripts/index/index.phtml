@@ -2,23 +2,12 @@
     <div class="rss">
     	<a href="<?=$this->baseUrl(); ?>/?format=rss" title="">RSS</a>
 	</div>
-        <div class="hr dotted"><hr /></div>
-        <div class="utilities">
-        <!--PAGINATION-->      
+        <div class="hr dotted"><hr /></div>    
         <?= $this->paginator?>
-        <!--END PAGINATION-->
-        <!--TRANSLATION SELECTOR-->
-        <div class="translation-selector">
-            <select name="translate">
-                <option selected="selected">Translate</option>
-                <option>English</option>
-            </select>
-		</div>
-        <!-- END TRANSLATION SELECTOR-->
-   		</div>
-
-
 <?php foreach ($this->posts as $post):?>
+        <?php if($this->posts->key() != 0):?>
+        <div class="hr simple"><hr /></div>
+        <?php endif;?>
 	<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
 <div class="utilities">

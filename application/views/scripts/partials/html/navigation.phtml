@@ -3,8 +3,8 @@
       <li class="home"><a class="<?=  ($this->getController()=='index' && $this->getAction() == 'index')?'active':'' ?>" href="<?= $this->baseUrl()?>/"> <?= $this->translate('Home')?></a></li>
       <li class="submit-feed"><a class="<?= ($this->getController()=='feed' && $this->getAction() == 'submit')?'active':'' ?>" href="<?= $this->baseUrl()?>/feed/submit/"><?= $this->translate('Submit Feed')?></a></li>
       <li class="ping-feeds"><a class="<?= ($this->getController()=='feed' && $this->getAction() == 'ping')?'active':'' ?>" href="<?= $this->baseUrl()?>/feed/ping/"><?= $this->translate('Ping Feed')?></a></li>
-      <li class="blogs"><a class="<?= ($this->getController()=='feed' && $this->getAction() == 'list')?'active':'' ?>" href="<?= $this->baseUrl()?>/weblogs"><?= $this->translate('Weblogs')?></a></li>
-      <li class="support"><a class="<?= ($this->getController()=='index' && $this->getAction() == 'support')?'active':'' ?>" href="<?= $this->baseUrl()?>/support"><?= $this->translate('Support')?></a></li>
+      <li class="blogs"><a class="<?= ($this->getController()=='feed' && $this->getAction() == 'list')?'active':'' ?>" href="<?= $this->baseUrl()?>/weblogs/"><?= $this->translate('Weblogs')?></a></li>
+      <li class="support"><a class="<?= ($this->getController()=='index' && $this->getAction() == 'support')?'active':'' ?>" href="<?= $this->baseUrl()?>/support/"><?= $this->translate('Support')?></a></li>
       <li class="about last"><a class="<?= ($this->getController()=='index' && $this->getAction() == 'about')?'active':'' ?>" href="<?= $this->baseUrl()?>/about/"><?= $this->translate('About')?></a></li>
     </ul>
   </div>

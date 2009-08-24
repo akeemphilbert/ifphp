@@ -36,7 +36,6 @@
   </div>
   
   <?= $this->partial('/partials/html/navigation.phtml')?>
-  <hr />
   <hr class="space" />
   <div class="content colborder">
 <?= $this->layout()->content ?>
@@ -44,7 +43,7 @@
   <div class="sidebar">
     <?= $this->action('list','category') ?>
     <hr />    
-    <?= $this->action('languages','module') ?>    
+    <?= $this->action('list','language') ?>
   	<div class="follow-us">
   		<a href="http://www.twitter.com/ifphp" title=""><img src="<?= $this->baseUrl()?>/imgs/layout/global/iphp_followus.png" alt="Follow ifphp on Twitter" /></a>
   	</div>

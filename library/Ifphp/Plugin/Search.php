@@ -18,9 +18,6 @@ class Ifphp_Plugin_Search extends Ifphp_Controller_Plugin_Abstract
         $doc->addField(Zend_Search_Lucene_Field::Text('pid', $post->id));
         $doc->addField(Zend_Search_Lucene_Field::Text('title', $post->title));
         $doc->addField(Zend_Search_Lucene_Field::Text('siteUrl', $post->siteUrl));
-        $doc->addField(Zend_Search_Lucene_Field::Text('feedUrl', $post->url));
-        $doc->addField(Zend_Search_Lucene_Field::Text('language', $post->language));
-        $doc->addField(Zend_Search_Lucene_Field::Text('category', $post->category));
         $doc->addField(Zend_Search_Lucene_Field::UnStored('description', $post->description));
         $index->addDocument($doc);
 

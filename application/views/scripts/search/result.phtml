@@ -1,0 +1,21 @@
+<h3><?=$this->translate('Search');?></h3>
+<div class="rss">
+    <a href="<?=$this->baseUrl();?>/search/result/?format=rss&term=<?=$this->term;?>" title="RSS feed for <?=$this->term;?> results">RSS</a>
+</div>
+<div class="hr dotted"><hr /></div>
+<?= $this->paginator?>
+<?php foreach ($this->paginator as $result):?>
+
+<?php if($this->paginator->getIterator()->key() != 0):?>
+<div class="hr simple"><hr /></div>
+<?php endif;?>
+
+<?php if ($result->type == 'post'):?>
+<?=$this->partial('partials/post.phtml',array('post'=>$result));?>
+<?php elseif($result->type == 'blog'):?>
+<?=$this->partial('partials/search/blog.phtml',array('blog'=>$result));?>
+<?php endif;?>
+<?php endforeach;?>
+<div id="posts-footer" class="utilities">
+       <?= $this->paginator?>
+</div>
