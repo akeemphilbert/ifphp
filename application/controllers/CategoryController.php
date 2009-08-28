@@ -15,7 +15,9 @@ class CategoryController extends Zend_Controller_Action
     public function viewAction()
     {
         $categories = new Categories();
+        $feeds = new Feeds();
         $this->view->category = $categories->getBySlug($this->getRequest()->getParam('id'));
+        $this->view->category->feeds = $feeds->getByCategory($this->view->category->id);
 
         $posts = new Posts();
 

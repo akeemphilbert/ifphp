@@ -1,0 +1,12 @@
+<opml version="1.1">
+    <head>
+        <title><?=$category->title;?></title>
+        <ownerName>IFPHP</ownerName>
+        <ownerEmail>support@ifphp.com</ownerEmail>
+    </head>
+    <body>
+        <?php foreach ($category->feeds as $feed):?>
+            <outline text="<?=$feed->title;?>" count="" xmlUrl="<?=$feed->link;?>" />
+        <?php endforeach; ?>
+    </body>
+</opml>

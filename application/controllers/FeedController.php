@@ -9,7 +9,7 @@ require_once 'Ifphp/models/Posts.php';
 require_once 'Ifphp/models/Users.php';
 require_once 'Ifphp/dtos/Status.php';
 require_once 'Ifphp/dtos/Role.php';
-require_once APPLICATION_PATH.'/views/filters/XSSClean.php';
+//require_once APPLICATION_PATH.'/views/filters/XSSClean.php';
 
 
 /**
@@ -268,18 +268,14 @@ class FeedController extends Zend_Controller_Action
     {
     	$feeds = new Feeds();
     	$categories = new Categories();
-    	$cats = $categories->getAll();
+    	$categories = $categories->getAll();
 
     	$this->view->feeds = $feeds->getAll();
 
-    	$FeedsByCategory = array();
+    	foreach($categories as $category )
+    	$category->feeds = $feeds->getByCategory($category->id);
 
-    	foreach($cats as $cat )
-    		$FeedsByCategory[$cat->title] = $feeds->getByCategory($cat->id);
-
-    	$this->view->feedsByCategory = $FeedsByCategory;
-
-    	$this->view->categories = $cats;
+    	$this->view->categories = $categories;
     }
 
     /**
@@ -403,6 +399,7 @@ class FeedController extends Zend_Controller_Action
         $this->view->activationLink = 'feed/activation/'.$feed->token;
         $this->view->pingbackLink = 'feed/ping-back/'.$feed->token;
 
+        
         $email = new Zend_Mail();
         $email->setSubject('IFPHP Feed Submission Confirmation');
         $email->setFrom(Zend_Registry::getInstance()->mailAccounts['support']);

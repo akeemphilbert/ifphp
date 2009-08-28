@@ -13,7 +13,7 @@
 			<td><?= $category->title?></td>
 			<td>
                             <div class="opml">
-                                <a href="<?=$this->baseUrl();?>/category/view/<?=$category->slug;?>" title="">OPML</a>
+                                <a href="<?=$this->baseUrl();?>/category/view/<?=$category->slug;?>/?format=opml" title="">OPML</a>
                             </div>
 			</td>
 		</tr>
@@ -21,6 +21,9 @@
 	</tbody>
 </table>
 
+<?php foreach ($this->categories as $category):?>
+<h4><?=$category->title;?></h4>
+<div class="hr dotted"><hr /></div>
 
 <table>
 
@@ -33,7 +36,7 @@
 	</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($this->feeds as $feed):?>
+		<?php foreach ($category->feeds as $feed):?>
 			<tr>
 				<th><?= $feed->title?></th>
 				<th><?= $feed->siteUrl?></th>
@@ -45,3 +48,4 @@
 	</tbody>
 
 </table>
+<?php endforeach;?>
