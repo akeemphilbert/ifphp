@@ -158,5 +158,42 @@ class Feeds extends AbstractModel
         $select->where('token = ?',$token);
         return $this->fetchRow($select);
     }
+
+    /**
+     * Get feed by email
+     * 
+     * @param string $email
+     * @return Feed
+     */
+    public function getByEmail($email)
+    {
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from('feeds');
+        $select->join(array('users'), 'users.id = feeds.userId', array());
+        $select->where('users.email = ?',$email);
+        return $this->fetchAll($select);
+    }
+
+    public function getByUserId($userId)
+    {
+        $select = $this->select();
+        $select->where('userId = ?',$userId);
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Get Feed using siteurl and userid
+     * 
+     * @param string $siteUrl
+     * @param int $userId
+     * @return Feed
+     */
+    public function getBySiteUrlAndUserId($siteUrl,$userId)
+    {
+        $select = $this->select();
+        $select->where('siteUrl = ?',$siteUrl);
+        $select->where('userId = ?',$userId);
+        return $this->fetchRow($select);
+    }
 	
 }

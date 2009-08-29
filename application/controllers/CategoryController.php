@@ -8,6 +8,7 @@
 
  require_once 'Ifphp/models/Categories.php';
  require_once 'Ifphp/models/Posts.php';
+ require_once 'Ifphp/models/Feeds.php';
  require_once 'Ifphp/core/SyndicateController.php';
 
 class CategoryController extends Zend_Controller_Action
@@ -15,7 +16,9 @@ class CategoryController extends Zend_Controller_Action
     public function viewAction()
     {
         $categories = new Categories();
+        $feeds = new Feeds();
         $this->view->category = $categories->getBySlug($this->getRequest()->getParam('id'));
+        $this->view->category->feeds = $feeds->getByCategory($this->view->category->id);
 
         $posts = new Posts();
 
