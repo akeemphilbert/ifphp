@@ -8,6 +8,7 @@
 
  require_once 'Ifphp/models/Categories.php';
  require_once 'Ifphp/models/Posts.php';
+ require_once 'Ifphp/models/Feeds.php';
  require_once 'Ifphp/core/SyndicateController.php';
 
 class CategoryController extends Zend_Controller_Action
