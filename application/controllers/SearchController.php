@@ -24,6 +24,7 @@ class SearchController extends Zend_Controller_Action
     /**
      * Buld search index
      * @todo this should be a command line thing
+     * @deprecated 08/19/09  use the command zf build search instead
      */
     public function buildAction(){
     	// Create index

@@ -33,6 +33,7 @@ class Feeds extends AbstractModel
     public function getAll($page=1,$limit=0)
     {
             $select = $this->getSelect();
+            $select->where('statusId = ?',Status::ACTIVE);
             return $this->fetchAll($select,null,$page,$limit);
     }
 
@@ -46,6 +47,7 @@ class Feeds extends AbstractModel
     {
             $select = $this->select();
             $select->where('id = ?',$id);
+            $select->where('statusId = ?',Status::ACTIVE);
             return $this->fetchRow($select);
     }
 
@@ -59,6 +61,7 @@ class Feeds extends AbstractModel
     {
         $select = $this->select();
         $select->where('slug = ?',$slug);
+        $select->where('statusId = ?',Status::ACTIVE);
         return $this->fetchRow($select);
     }
 
@@ -103,6 +106,7 @@ class Feeds extends AbstractModel
 
             $select = $this->getSelect();
             $select->where('categories.id = ?', $categoryId);
+            $select->where('statusId = ?',Status::ACTIVE);
             return $this->fetchAll($select);
 
     }
@@ -116,6 +120,7 @@ class Feeds extends AbstractModel
     {
         $select = $this->select();
         $select->order('lastPing desc');
+        $select->where('statusId = ?',Status::ACTIVE);
         return $this->fetchAll($select);
     }
 
@@ -128,6 +133,7 @@ class Feeds extends AbstractModel
     {
         $select = $this->select();
         $select->order('views desc');
+        $select->where('statusId = ?',Status::ACTIVE);
         return $this->fetchAll($select);
     }
 
