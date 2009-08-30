@@ -34,6 +34,7 @@ class Feeds extends AbstractModel
         )
     );
 
+
     /**
      * Get all available categories
      * 

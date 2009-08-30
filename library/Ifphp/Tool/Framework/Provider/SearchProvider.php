@@ -80,7 +80,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
             $index->addDocument($doc);
         }
 
-        chown(Zend_Registry::getInstance()->search->feed,'www-data');
+        chown(Zend_Registry::getInstance()->search['feed'],'www-data');
         return true;
     }
 
@@ -119,6 +119,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
             $doc->addField(Zend_Search_Lucene_Field::Text('link', $post->link));
             $doc->addField(Zend_Search_Lucene_Field::Text('feedTitle', $feed->title));
             $doc->addField(Zend_Search_Lucene_Field::Text('feedSlug', $feed->slug));
+            $doc->addField(Zend_Search_Lucene_Field::Text('feedDescription', $feed->description));
             $doc->addField(Zend_Search_Lucene_Field::keyword('category', $feed->findParentCategories()->title));
             $doc->addField(Zend_Search_Lucene_Field::Text('description', $post->description));
             $doc->addField(Zend_Search_Lucene_Field::unIndexed('publishDate', $post->publishDate));
@@ -126,7 +127,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
             $index->addDocument($doc);
 
         }
-        chown(Zend_Registry::getInstance()->search->post,'www-data');
+        chown(Zend_Registry::getInstance()->search['post'],'www-data');
         return true;
     }
 

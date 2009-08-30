@@ -396,7 +396,7 @@ class FeedController extends Zend_Controller_Action
      */
     protected function sendActivationEmail(Feed $feed,User $user)
     {
-        $this->view->activationLink = 'feed/activation/'.$feed->token;
+        $this->view->activationLink = 'feed/activate/'.$feed->token;
         $this->view->pingbackLink = 'feed/ping-back/'.$feed->token;
 
         

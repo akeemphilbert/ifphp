@@ -48,12 +48,13 @@ class Posts extends AbstractModel
         $select = $this->select();
         $select->where('feedId = ?',$feedId);
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
 
         $select->from('posts',$columns);
         $select->setIntegrityCheck(false);
         $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
         $select->where('feeds.statusId = ?',Status::ACTIVE);
+        $select->order('posts.publishDate DESC');
         
         if ($limit)
         $select->limitPage($page, $limit);
@@ -70,7 +71,7 @@ class Posts extends AbstractModel
     {
         $select = $this->select();
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
         $select->from('posts',$columns);
 
         $select->setIntegrityCheck(false);
@@ -94,7 +95,7 @@ class Posts extends AbstractModel
     {
         $select = $this->select()->setIntegrityCheck(false);
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
         $select->from('posts',$columns);
         $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
         $select->where('feeds.statusId = ?',Status::ACTIVE);
@@ -118,7 +119,7 @@ class Posts extends AbstractModel
     {
         $select = $this->select()->setIntegrityCheck(false);
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
         $select->from('posts',$columns);
         $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
         $select->where('feeds.statusId = ?',Status::ACTIVE);

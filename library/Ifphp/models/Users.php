@@ -14,6 +14,7 @@
  * @see Ifphp/core/AbstractModel
  */
 require_once 'Ifphp/core/AbstractModel.php';
+require_once 'Ifphp/dtos/User.php';
 
 /**
  * This class contains all the db interactions for the user
@@ -21,6 +22,7 @@ require_once 'Ifphp/core/AbstractModel.php';
 class Users extends AbstractModel
 {
 	protected $_name = 'users';
+        protected $_rowClass = 'User';
 
     /**
      * Get user by email

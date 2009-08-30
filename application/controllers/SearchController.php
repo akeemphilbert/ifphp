@@ -1,11 +1,17 @@
 <?php
+require_once 'Ifphp/core/SyndicateController.php';
 
-class SearchController extends Zend_Controller_Action
+class SearchController extends Ifphp_SyndicateController
 {
 
     public function init()
     {
-        /* Initialize action controller here */
+        parent::init();
+
+        $this->_contextSwitch = $this->_helper->getHelper('contextSwitch');
+        
+        $this->_contextSwitch->addActionContext('result',array('rss','atom'))
+                             ->initContext();
     }
 
     public function indexAction()

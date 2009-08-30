@@ -23,7 +23,8 @@ class Ifphp_Controller_Plugin_Broker extends Zend_Controller_Plugin_Broker
                     if (Zend_Controller_Front::getInstance()->throwExceptions()) {
                         throw $error;
                     } else {
-                        $this->getResponse()->setException($error);
+                        echo $error;
+//                        $this->getResponse()->setException($error);
                     }
                 }
             }

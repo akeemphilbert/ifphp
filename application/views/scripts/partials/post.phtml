@@ -3,7 +3,7 @@
     
       <ul class="post-info">
           <li>
-	    <span class="blog-name"><a href="<?=$this->baseUrl();?>/feed/view/<?=$this->post->feedSlug;?>/"><?=$this->post->feedTitle;?></a></span> - <span class="date"><?=$this->date($this->post->publishDate);?></span>
+	    <span class="blog-name"><a href="<?=$this->baseUrl();?>/feed/view/<?=$this->post->feedSlug;?>/" title="<?=$this->post->feedDescription;?>"><?=$this->post->feedTitle;?></a></span> - <span class="date"><?=$this->date($this->post->publishDate);?></span>
           </li>
         <!--<li>|</li>
         <li><a href="#" title="">Bookmark</a></li>

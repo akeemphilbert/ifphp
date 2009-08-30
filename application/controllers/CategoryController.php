@@ -11,8 +11,20 @@
  require_once 'Ifphp/models/Feeds.php';
  require_once 'Ifphp/core/SyndicateController.php';
 
-class CategoryController extends Zend_Controller_Action
+class CategoryController extends Ifphp_SyndicateController
 {
+    public function init()
+    {
+        parent::init();
+
+        $this->_contextSwitch = $this->_helper->getHelper('contextSwitch');
+        if (!$this->_contextSwitch->hasContext('opml'))
+        $this->_contextSwitch->addContext('opml',array('suffix'=>'opml','headers'=>array('Content-type'=>'text/xml')));
+
+        $this->_contextSwitch->addActionContext('view',array('rss','atom','opml'))
+                             ->initContext();
+    }
+
     public function viewAction()
     {
         $categories = new Categories();
