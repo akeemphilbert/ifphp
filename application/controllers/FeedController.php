@@ -368,6 +368,16 @@ class FeedController extends Zend_Controller_Action
          $feed->save();
     }
     
+    public function getAction()
+    {
+    $post =new POST();
+    $feedt =new FEED();
+          // Ifphp_Controller_Front::getInstance()->getPluginBroker()->addPost($post, $feed);
+           Zend_Debug::dump(Ifphp_Controller_Front::getInstance()->getPluginBroker());
+           
+           die();
+    }
+    
     
 
 
