@@ -1,6 +1,12 @@
+<?php foreach ($this->categories as $category):?>
+<?php $tc[] = $category->title;?>
+<?php endforeach;?>
+<?php $this->headMeta()->appendName('keywords','php,feeds,framework,'.implode(',',$tc)); ?>
+<?php $this->headMeta()->appendName('description','List of categories and feed. Categories include popular PHP frameworks and CMS'); ?>
 <h3><?=$this->translate('Weblogs');?></h3>
 <div class="hr dotted"><hr /></div>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum purus hendrerit magna malesuada non volutpat urna lobortis. Suspendisse potenti. Sed lacus nisi, interdum quis porta non, dapibus in urna. Integer arcu eros, euismod non ornare ultrices, congue in metus.</p>
+<div class="content-body">
+<p>Below is a list of categories as well as the list of feeds that are aggregated by category.</p>
 
 <table>
 	<thead>
@@ -10,7 +16,7 @@
 		<?php foreach($this->categories as $category):?>
 
 		<tr>
-			<td><?= $category->title?></td>
+			<td><a href="<?=$this->baseUrl('/category/view/'.$category->slug.'/');?>"><?= $category->title?></a></td>
 			<td>
                             <div class="opml">
                                 <a href="<?=$this->baseUrl();?>/category/view/<?=$category->slug;?>/?format=opml" title="">OPML</a>
@@ -30,18 +36,20 @@
 	<thead>
 	<tr>
 		<th>Name</th>
+                <th>Feed</th>
 		<th>Site</th>
-		<th>Language</th>
 		<th>Last Updated</th>
 	</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($category->feeds as $feed):?>
 			<tr>
-				<th><?= $feed->title?></th>
-				<th><?= $feed->siteUrl?></th>
-				<th><?= $feed->language?></th>
-				<th><?= $this->date($feed->modified)?></th>
+				<td><a href="<?=$this->baseUrl('/feed/view/'.$feed->slug);?>"><?= $feed->title?></a></td
+                                <td><div class="rss">
+                                <a href="<?=$feed->url;?>" title="">RSS</a>
+                            </div></td>
+				<td><a href="<?=$feed->siteUrl;?>"><?= $feed->siteUrl?></a></td>
+				<td><?= $this->date($feed->modified)?></td>
 			</tr>
 		<?php endforeach;?>
 
@@ -49,3 +57,4 @@
 
 </table>
 <?php endforeach;?>
+</div>

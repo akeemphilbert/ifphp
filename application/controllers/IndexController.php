@@ -26,8 +26,6 @@ class IndexController extends Ifphp_SyndicateController
         $this->view->paginator = Zend_Paginator::factory($total);
         $this->view->paginator->setCurrentPageNumber($page);
         $this->view->paginator->setItemCountPerPage($limit);
-
-        $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->term));	
     }
     
     /**

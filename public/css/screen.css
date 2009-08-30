@@ -280,6 +280,7 @@ body {background:url(../imgs/layout/header/bg.gif) repeat-x 0 0;}
 	top:-38px;
 	width:19px;
 }
+td div.rss a {position:inherit !important;}
 .content .opml a {
 	background:url(../imgs/layout/global/opml-icon-24x24.png) no-repeat 0 0;
 	display:block;
@@ -351,7 +352,6 @@ body {background:url(../imgs/layout/header/bg.gif) repeat-x 0 0;}
 .content #posts-footer {margin-top:12px}
 
 .content .post {margin-top:10px;padding-left:15px}
-.content .post p {color:#828282}
 .content .post p.post-title {margin:0}
 .content .post p.post-title a {font-size:17px; font-weight:900}
 

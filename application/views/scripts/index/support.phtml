@@ -1,8 +1,4 @@
-<? $this->headScript()
-    ->appendFile($this->baseUrl().'/js/development.js','text/javascript')
-    ->appendFile($this->baseUrl().'/js/jquery-1.3.2.js','text/javascript')
-   ->appendScript("$(document).ready(function(){Support.init();});");
- $this->headTitle($this->translate('Support')); ?> 
+<?php $this->jQuery()->addOnLoad('Support.init();');?>
 
 <h3><?= $this->translate('Support')?></h3> 
 <div class="hr dotted"><hr /></div>

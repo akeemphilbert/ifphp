@@ -1,3 +1,8 @@
+<?php $this->headMeta()->appendName('keywords','php,news aggregator,ping'); ?>
+<?php $this->headMeta()->appendName('description','Notify us when your feed has been updated'); ?>
 <h3><?= $this->translate('Ping Feed')?></h3> 
 <div class="hr dotted"><hr /></div>
+<div class="content-body">
+<p>You can ping IFPHP to let us know that a post has been added to your feed. In addition to using the ping url sent in your activation email in your publishing platform you can manually ping your feed here by submitting your site url.</p>
+</div>
 <?=$this->form;?>

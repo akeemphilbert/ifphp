@@ -25,7 +25,7 @@ class SearchController extends Ifphp_SyndicateController
         {
             $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
             $limit = 5;
-
+            
             switch (strtolower($this->getRequest()->getParam('type')))
             {
                 case 'blog':

@@ -151,6 +151,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //        $view->addFilterPath(APPLICATION_PATH . "/views/filters/", "Ifphp_Filter");
         $view->addHelperPath("ZendX/JQuery/View/Helper", "ZendX_JQuery_View_Helper");
 
+
+        $doctypeHelper = new Zend_View_Helper_Doctype();
+        $doctypeHelper->doctype('XHTML1_TRANSITIONAL');
+
         $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
         $viewRenderer->setView($view);
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
@@ -163,14 +167,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('partials/pagination/default.phtml');
-    }
-
-    /**
-     * Setup search paths
-     */
-    protected function _initSearch()
-    {
-        Zend_Registry::getInstance()->search = $this->getOption('search');
     }
     
 }

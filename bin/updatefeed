@@ -1,0 +1,2 @@
+bin/zf update
+echo "Feedup udpate: $(date)" >> /tmp/mybackup.log

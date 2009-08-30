@@ -80,7 +80,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
             $index->addDocument($doc);
         }
 
-        chown(Zend_Registry::getInstance()->search['feed'],'www-data');
+        chown(Zend_Registry::getInstance()->config->search->feed,'www-data');
         return true;
     }
 
@@ -127,7 +127,7 @@ class Ifphp_Tool_Framework_Provider_Search extends Zend_Tool_Framework_Provider_
             $index->addDocument($doc);
 
         }
-        chown(Zend_Registry::getInstance()->search['post'],'www-data');
+        chown(Zend_Registry::getInstance()->config->search->post,'www-data');
         return true;
     }
 
