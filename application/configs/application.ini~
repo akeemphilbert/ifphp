@@ -1,0 +1,65 @@
+[production]
+phpSettings.display_startup_errors = 0
+phpSettings.display_errors = 0
+includePaths.library = APPLICATION_PATH "/../library"
+
+;#bootstrap
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+
+;#frontcontroller
+resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+
+;#layout
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
+
+;#database
+resources.db.adapter = "pdo_mysql"
+resources.db.params.host = "ifphp.com"
+resources.db.params.username = "ifphp"
+resources.db.params.password = "ifphp"
+resources.db.params.dbname = "ifphp"
+resources.db.isDefaultTableAdapter = true
+
+;#session
+resources.session.save_path = APPLICATION_PATH "/../data/session"
+resources.session.remember_me_seconds = 864000
+
+
+;#cache
+cache.enabled = 1;
+
+;# Local resources enabled
+resources.locale = true
+
+;#log source
+log.location = /tmp/
+
+#reCaptcha
+reCaptcha.publicKey = 6Le-uwcAAAAAAID6Nl_LqGVA4TDKl61D-ZKnd0yv
+reCaptcha.privateKey = 6Le-uwcAAAAAAP79uVDJbCdoUmWX11y4duJtTplm
+
+
+[staging : production]
+
+[testing : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+[development : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+[akeem : development]
+;#cache
+cache.enabled = 0;
+
+;#log source
+log.location = /home/akeem/workspace/ifphp/tmp/
+
+[albert : development]
+;#cache
+cache.enabled = 0;
+
+;#log source
+log.location = /var/www/ifphp/tmp/

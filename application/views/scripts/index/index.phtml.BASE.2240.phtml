@@ -1,0 +1,46 @@
+  <h3>Most Recent</h3>
+    <div class="rss">
+    	<a href="<?=$this->baseUrl(); ?>/?format=rss" title="">RSS</a>
+	</div>
+        <div class="hr dotted"><hr /></div>
+        <div class="utilities">
+        <!--PAGINATION-->      
+         <?= $this->paginationControl($this->paginator, 'Sliding', '/partials/paginator/list.phtml'); ?>  
+              <?= $this->paginator?>
+        <!--END PAGINATION-->
+        <!--TRANSLATION SELECTOR-->
+        <div class="translation-selector">
+            <select name="translate">
+                <option selected="selected">Translate</option>
+                <option>English</option>
+            </select>
+		</div>
+        <!-- END TRANSLATION SELECTOR-->
+   		</div>
+
+
+<?php foreach ($this->posts as $post):?>
+<<<<<<< Temporary merge branch 1:application/views/scripts/index/index.phtml
+	<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
+=======
+<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
+>>>>>>> Temporary merge branch 2:application/views/scripts/index/index.phtml
+<?php endforeach;?>
+<<<<<<< Temporary merge branch 1:application/views/scripts/index/index.phtml
+
+<div id="posts-footer" class="utilities">
+        <!--PAGINATION-->      
+              <?= $this->paginator?>
+        <!--END PAGINATION-->
+        <!--TRANSLATION SELECTOR-->
+        <div class="translation-selector">
+            <select name="translate">
+                <option selected="selected">Translate</option>
+                <option>English</option>
+            </select>
+		</div>
+        <!-- END TRANSLATION SELECTOR-->
+        </div>
+=======
+<?= $this->paginator;?>
+>>>>>>> Temporary merge branch 2:application/views/scripts/index/index.phtml

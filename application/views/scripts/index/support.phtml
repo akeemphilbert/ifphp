@@ -1,6 +1,16 @@
-<?php $this->headTitle($this->translate('Support')); ?>
+<? $this->headScript()
+    ->appendFile($this->baseUrl().'/js/development.js','text/javascript')
+    ->appendFile($this->baseUrl().'/js/jquery-1.3.2.js','text/javascript')
+   ->appendScript("$(document).ready(function(){Support.init();});");
+ $this->headTitle($this->translate('Support')); ?> 
+
 <h3><?= $this->translate('Support')?></h3> 
 <div class="hr dotted"><hr /></div>
+<?
+/**    
+    @note It's not that serious yet
+    
+    
 <?php if($this->supports):?>
 	<p>Support for : <?= $this->term?></p>
 	<ul>
@@ -13,3 +23,39 @@
 <?php else:?>
 
 <?php endif;?>
+
+*/?>
+
+<style>    
+    .support-list{margin:15px 35px;}
+ </style>
+<div class="content-body">
+<ol class="support-list">
+    <li> <a href="#1" class="supportItem">What is Ifphp?</a>
+        <div id='1' class="supportAnswer">
+            Ifphp is a RSS/Atom/RDF feed aggregator written in PHP using Zend Framework that allows developers to monitor PHP related blogs and news in once place
+        </div>
+    </li>
+    <li><a href='#2' class="supportItem">How do I get my feed added?</a>
+        <div id="2" class="supportAnswer">
+            If you own or maintain a PHP related website or blog that provide an Atom,RSS, or RDF feed you can submit your feed here. When you're done with submitting your feed an email will be sent to you with an activation link that will allow your posts to begin appearing on IFPHP
+        </div>
+    </li>
+    <li><a href="#3" class="supportItem">Why haven't I received my activation email?</a>
+        <div id="3" class="supportAnswer">
+            Sometimes email sent from us may end up in your junk mail folder. If the activation is not in the junk mail folder let us know at 
+            <a href="mailto:support@ifphp.com">support@ifphp.com</a>
+        </div>
+    </li>
+    <li><a href="#4" class="supportItem">Can I notify IFPHP when I make a new post?</a>
+        <div id="4" class="supportAnswer">
+            Yes IFPHP supports the Blogger ping API. Each feed has a unique ping url that was sent in the activation email that can be input into your blogging platform to tell us when a post has been added.
+        </div>
+    </li>    
+    <li><a href="#5" class="supportItem">I added my feed but why don't I  see my posts on the website?</a>
+        <div id="5" class="supportAnswer">
+            IFPHP checks for feed updates every hour. 
+        </div>
+    </li>    
+</ol>
+</div>
