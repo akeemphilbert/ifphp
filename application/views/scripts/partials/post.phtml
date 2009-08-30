@@ -1,8 +1,10 @@
-  <div class="post clear">
+<div class="post clear">
     <p class="post-title"><a href="<?=$this->post->link;?>"><?=$this->post->title;?></a></p>
-    <div class="hr simple"><hr /></div>
+    
       <ul class="post-info">
-	    <span class="blog-name"><a href="<?=$this->post->siteUrl;?>"><?=$this->post->feedTitle;?></a></span> - <span class="date"><?=$this->date($this->post->publishDate);?></span></li>
+          <li>
+	    <span class="blog-name"><a href="<?=$this->baseUrl();?>/feed/view/<?=$this->post->feedSlug;?>/" title="<?=$this->post->feedDescription;?>"><?=$this->post->feedTitle;?></a></span> - <span class="date"><?=$this->date($this->post->publishDate);?></span>
+          </li>
         <!--<li>|</li>
         <li><a href="#" title="">Bookmark</a></li>
         <li>|</li>
@@ -12,5 +14,4 @@
         -->
       </ul>
  	 <p><?=$this->post->description;?>...</p>
-    <img src="imgs/layout/global/post_divider.png" alt="" />
-    </div>
+</div>

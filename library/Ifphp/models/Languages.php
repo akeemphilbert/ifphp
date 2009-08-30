@@ -35,5 +35,19 @@ class Languages extends AbstractModel{
 		
 		return $this->fetchAll($select);
 	}
+
+        /**
+         * Get language by slug
+         *
+         * @param string $slug
+         * @return Language
+         */
+        public function getBySlug($slug)
+        {
+            $select = $this->select();
+            $select->where('slug = ?', $slug);
+
+            return $this->fetchRow($select);
+        }
 	
 }

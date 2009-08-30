@@ -1,28 +1,42 @@
-<?php if ($this->pageCount): ?>
-<div class="paginationControl">
-<!-- Previous page link -->
-<?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
-    &lt; Previous
-  </a> |
-<?php endif; ?>
+<?php if ($this->pageCount > 1): ?>
+<div class="utilities">
+<!--PAGINATION-->
+    <div class="pagination">
+    <ul>
+    <!-- Previous page link -->
+    <?php if (isset($this->previous)): ?>
+     <li class="previous">
+         <?php $_GET['page'] = $this->previous;?>
+      <a href="<?= $this->url($_GET); ?>">
+         <img src="<?=$this->baseUrl();?>/imgs/layout/global/pagination_left.gif" alt="ifphp" />
+      </a>
+     </li>
+    <?php endif; ?>
 
-<!-- Numbered page links -->
-<?php foreach ($this->pagesInRange as $page): ?>
-  <?php if ($page != $this->current): ?>
-    <a href="<?php echo $this->url(array('page' => $page)); ?>">
-        <?php echo $page; ?>
-    </a> |
-  <?php else: ?>
-    <?php echo $page; ?> |
-  <?php endif; ?>
-<?php endforeach; ?>
+    <!-- Numbered page links -->
+    <?php foreach ($this->pagesInRange as $page): ?>
+      <?php if ($page != $this->current): ?>
+        <li>
+        <?php $_GET['page'] = $page;?>
+        <a href="<?=$this->url($_GET); ?>">
+            <?=$page; ?>
+        </a>
+       </li>
+      <?php else: ?>
+         <li class="active"><?=$page; ?></li>
+      <?php endif; ?>
+    <?php endforeach; ?>
 
-<!-- Next page link -->
-<?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
-    Next &gt;
-  </a>
-<?php endif; ?>
+    <!-- Next page link -->
+    <?php if (isset($this->next)): ?>
+      <li class="next">
+          <?php $_GET['page'] = $this->next;?>
+      <a href="<?=$this->url($_GET); ?>">
+         <img src="<?=$this->baseUrl();?>/imgs/layout/global/pagination_right.gif" alt="ifphp" />
+      </a>
+    </li>
+    <?php endif; ?>
+    </ul>
+    </div>
 </div>
 <?php endif; ?>

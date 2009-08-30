@@ -1,0 +1,12 @@
+<h3><?=$this->language->title;?></h3>
+<div class="rss">
+    <a href="<?=$this->baseUrl();?>/language/view/<?=$this->language->slug; ?>/?format=rss" title="<?=$this->language->title;?>'s language feed">RSS</a>
+</div>
+<div class="hr dotted"><hr /></div>
+<?= $this->paginator?>
+<?php foreach ($this->posts as $post):?>
+<?=$this->partial('partials/post.phtml',array('post'=>$post));?>
+<?php endforeach;?>
+<div id="posts-footer" class="utilities">
+       <?= $this->paginator?>
+</div>

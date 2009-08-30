@@ -3,7 +3,7 @@
     <div class="hr dotted"><hr /></div>
         <ul>
         	<?php foreach($this->languages as $language):?>
-            <li><a href="<?= $this->baseUrl()?>/language/view/id/<?= $language->id?>"><?= $language->title?></a></li>
+            <li><a href="<?= $this->baseUrl()?>/language/view/<?= $language->slug?>"><?= ucfirst($language->title);?></a></li>
             <?php endforeach;?>
         </ul>
     </div>

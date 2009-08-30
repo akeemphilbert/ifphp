@@ -27,7 +27,13 @@ class Posts extends AbstractModel
 {
     protected $_name = 'posts';
     protected $_rowClass = 'Post';
-
+    protected $_referenceMap = array(
+        'Feed'=>array(
+            'columns'   => 'feedId',
+            'refTableClass' =>  'Feeds',
+            'refColumns'    =>  'id'
+        )
+    );
 
     /**
      * Get posts by feed id
@@ -42,12 +48,13 @@ class Posts extends AbstractModel
         $select = $this->select();
         $select->where('feedId = ?',$feedId);
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
 
         $select->from('posts',$columns);
         $select->setIntegrityCheck(false);
         $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
         $select->where('feeds.statusId = ?',Status::ACTIVE);
+        $select->order('posts.publishDate DESC');
         
         if ($limit)
         $select->limitPage($page, $limit);
@@ -64,7 +71,7 @@ class Posts extends AbstractModel
     {
         $select = $this->select();
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
         $select->from('posts',$columns);
 
         $select->setIntegrityCheck(false);
@@ -88,12 +95,36 @@ class Posts extends AbstractModel
     {
         $select = $this->select()->setIntegrityCheck(false);
         $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
-        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl');
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
         $select->from('posts',$columns);
         $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
         $select->where('feeds.statusId = ?',Status::ACTIVE);
         $select->join('categories','categories.id = feeds.categoryId',array());
         $select->where('categories.id = ?',$category);
+        $select->order('posts.publishDate DESC');
+        if ($limit)
+        $select->limitPage($page, $limit);
+        return $isCount ? $this->fetchRow($select,null,1,0) : $this->fetchAll($select);
+    }
+
+    /**
+     * Get posts by language
+     *
+     * @param integer $language
+     * @param integer $page
+     * @param integer $limit
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getByLanguage($language,$page=1,$limit=0,$isCount=false)
+    {
+        $select = $this->select()->setIntegrityCheck(false);
+        $columns = $isCount ? array('total'=>'COUNT(posts.id)') : '*';
+        $feedColumns = $isCount ? array() : array('feedTitle'=>'title','siteUrl','feedSlug'=>'slug','feedDescription'=>'description');
+        $select->from('posts',$columns);
+        $select->join('feeds','feeds.id = posts.feedId',$feedColumns);
+        $select->where('feeds.statusId = ?',Status::ACTIVE);
+        $select->join('languages','languages.id = feeds.languageId',array());
+        $select->where('languages.id = ?',$language);
         $select->order('posts.publishDate DESC');
         if ($limit)
         $select->limitPage($page, $limit);
@@ -112,4 +143,12 @@ class Posts extends AbstractModel
         $select->where('link = ?',$link);
         return $this->fetchRow($select);
     }
+    
+    /**
+    * @todo need to figiure out a way to clear only Post cache by IDs
+    *
+    */    
+        public function clearCache(){
+            
+        }
 }

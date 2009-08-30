@@ -198,4 +198,5 @@ class AbstractModel extends Zend_Db_Table_Abstract{
         }
         return parent::update($data, $where);
     }
+    
 }

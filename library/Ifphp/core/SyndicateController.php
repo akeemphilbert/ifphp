@@ -20,7 +20,9 @@ class Ifphp_SyndicateController extends Zend_Controller_Action
         parent::init();
         
         $this->_contextSwitch = $this->_helper->getHelper('contextSwitch');
+        if (!$this->_contextSwitch->hasContext('rss'))
         $this->_contextSwitch->addContext('rss',array('suffix'=>'rss','headers'=>array('Content-type'=>'application/rss+xml')));
+        if (!$this->_contextSwitch->hasContext('atom'))
         $this->_contextSwitch->addContext('atom',array('suffix'=>'atom','headers'=>array('Content-type'=>'application/atom+xml')));
 
         $this->_contextSwitch->addActionContext('list',array('rss','atom'))

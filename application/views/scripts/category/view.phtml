@@ -1,4 +1,12 @@
-<h3><?=$this->category->title;?> - <a href="<?=$this->baseUrl(); ?>/?format=rss" class="alt">RSS &raquo;</a></h3>
+<h3><?=$this->category->title;?></h3>
+<div class="rss">
+    <a href="<?=$this->baseUrl();?>/category/view/<?=$this->category->slug; ?>/?format=rss" title="<?=$this->category->title;?>'s category feed">RSS</a>
+</div>
+<div class="hr dotted"><hr /></div>
+<?= $this->paginator?>
 <?php foreach ($this->posts as $post):?>
 <?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
+<div id="posts-footer" class="utilities">
+       <?= $this->paginator?>
+</div>

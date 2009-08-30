@@ -17,12 +17,16 @@
  * @see Ifphp/core/AbstractModel
  */
 require_once 'Ifphp/core/AbstractModel.php';
+require_once 'Ifphp/dtos/Category.php';
 
 /**
  * This class contains all the db interactions for the category
  */
-class Categories extends AbstractModel{
+class Categories extends AbstractModel
+{
 	protected $_name = 'categories';
+    protected $_dependentTables = array('Feeds');
+    protected $_rowClass = 'Category';
 	
 	/**
 	 * Get all available categories
@@ -35,16 +39,16 @@ class Categories extends AbstractModel{
 		return $this->fetchAll($select);
 	}
 
-        /**
-         * Get category by slug
-         * @param string $slug
-         * @return Category
-         */
-        public function getBySlug($slug)
-        {
-            $select = $this->select();
-            $select->where('slug = ?',$slug);
-            return $this->fetchRow($select);
-        }
+    /**
+     * Get category by slug
+     * @param string $slug
+     * @return Category
+     */
+    public function getBySlug($slug)
+    {
+        $select = $this->select();
+        $select->where('slug = ?',$slug);
+        return $this->fetchRow($select);
+    }
 	
 }

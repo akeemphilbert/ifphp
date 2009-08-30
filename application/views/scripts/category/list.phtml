@@ -4,7 +4,7 @@
     <div class="hr dotted"><hr /></div>
     <ul>
             <?php foreach ($this->categories as $category):?>
-        <li><a href="/category/view/<?=$category->slug?>"><?=$category->title?></a></li>
+        <li><a href="/category/view/<?=$category->slug?>" title="<?=$category->description;?>"><?=$category->title?></a></li>
         <?php endforeach;?>
     </ul>
 </div>

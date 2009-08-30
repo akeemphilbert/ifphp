@@ -1,8 +1,20 @@
 <?php foreach ($this->messages as $message):?>
 <div class="notice"><?=$message ?></div>
 <?php endforeach;?>
-<h3><?=$this->feed->title;?> - <a href="<?=$this->baseUrl(); ?>/?format=rss" class="alt">RSS &raquo;</a></h3>
+<h3><?=$this->feed->title;?></h3>
+<div class="rss">
+    <a href="<?=$this->feed->url; ?>" title="">RSS</a>
+</div>
+<div class="hr dotted"><hr /></div>
+<?= $this->paginator?>
 <?php foreach ($this->posts as $post):?>
+
+<?php if($this->posts->key() != 0):?>
+<div class="hr simple"><hr /></div>
+<?php endif;?>
+
 <?=$this->partial('partials/post.phtml',array('post'=>$post));?>
 <?php endforeach;?>
-<?= $this->paginator;?>
+<div id="posts-footer" class="utilities">
+       <?= $this->paginator?>
+</div>
