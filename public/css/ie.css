@@ -34,3 +34,6 @@ form.inline label {position:relative;top:-0.25em;}
 form.inline input.checkbox, form.inline input.radio, form.inline input.button, form.inline button {margin:0.5em 0;}
 button, input.button {position:relative;top:0.25em;}
 .navigation li, .pagination li {display:inline; float:left}
+.content .utilities .pagination .next a,
+.content .utilities .pagination .previous a {top:-1px;}
+.header #search_box #s {top:3px}

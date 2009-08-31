@@ -2,7 +2,7 @@
 /**
  * Website bootstrap
  *
- * @author Albert Rosa <rosaalbert@gmail.com>
+ * @author Albert Rosa <rosalbert@gmail.com>
  * @author Akeem Philbert <akeemphilbert@gmail.com>
  *
  * @copyright IFPHP (c) 2009
@@ -47,18 +47,34 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	 * @return void
 	 */
 	protected function _initCache()
-    {	
-    	$config  = new Zend_Config_Xml(APPLICATION_PATH.'/configs/cache.xml',APPLICATION_ENV );
-    	
-        $cache = Zend_Cache::factory(
-        	$config->cache->frontend->name,        	
-        	$config->cache->backend->name,
-        	$config->cache->frontend->toArray(),        	
-        	$config->cache->backend->toArray()
-        );
-        $cache->start();
-        
-    }
+        {
+//            Zend_Registry::set('cacheConfig',new Zend_Config_Xml(APPLICATION_PATH.'/configs/cache.xml',APPLICATION_ENV,array('allowModifications'=>true)));
+            
+            //TODO this should be in a seperate file. the output isn't compatible with xml and i suspect ini as well
+//            Zend_Registry::getInstance()->cacheConfig->pageCache->frontend->options->regexps = array(
+//               '^/$' => array('cache' => true),
+//               '^/index/' => array('cache' => true),
+//               '^/weblogs/$' => array('cache' => true),
+//               '^/feed/' => array('cache' => true),
+//               '^/about/' => array('cache' => true)
+//            );
+
+//           Zend_Debug::dump(Zend_Registry::getInstance()->cacheConfig->pageCache->frontend->options->toArray());
+//           die();
+
+//            $cache = Zend_Cache::factory(
+//                Zend_Registry::getInstance()->cacheConfig->pageCache->frontend->name,
+//                Zend_Registry::getInstance()->cacheConfig->pageCache->backend->name,
+//                Zend_Registry::getInstance()->cacheConfig->pageCache->frontend->options->toArray(),
+//                Zend_Registry::getInstance()->cacheConfig->pageCache->backend->options->toArray()
+//             );
+//
+//             $cache->start();
+
+//            $writer = new Zend_Config_Writer_Xml(array('config'   => Zend_Registry::getInstance()->cacheConfig,
+//                                           'filename' => APPLICATION_PATH.'/configs/test-config.xml'));
+//            $writer->write();
+        }
 
     /**
      * Here we set the loggers for logging errors
@@ -74,12 +90,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     	$fbug = new Zend_Log_Writer_Firebug();
 
     	$logger = new Zend_Log($writer);
-//    	$logger = new Zend_Log($fbug);
     	$logger->addWriter($fbug);
 
     	Zend_Registry::set('logger',$logger);
-
-
     }
     
     /**
@@ -170,4 +183,3 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     
 }
-

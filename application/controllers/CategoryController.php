@@ -34,7 +34,7 @@ class CategoryController extends Ifphp_SyndicateController
 
         $posts = new Posts();
 
-        $limit = 5;
+        $limit = 10;
         $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
         $this->view->posts = $posts->getByCategory($this->view->category->id,$page,$limit);
 
@@ -42,11 +42,6 @@ class CategoryController extends Ifphp_SyndicateController
         $this->view->paginator = Zend_Paginator::factory($total);
         $this->view->paginator->setCurrentPageNumber($page);
         $this->view->paginator->setItemCountPerPage($limit);
-        
-        $this->view->keywords = implode('', array('ifphp','news aggragator','support,'.$this->view->categpry->title));
-        
-
-        //TODO add paging
     }
 
     public function listAction()

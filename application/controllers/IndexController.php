@@ -17,7 +17,7 @@ class IndexController extends Ifphp_SyndicateController
      */
     public function indexAction()
     {
-        $limit = 5;
+        $limit = 10;
 
         $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
     	$posts = new Posts();

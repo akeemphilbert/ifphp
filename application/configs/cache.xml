@@ -2,45 +2,39 @@
 <config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
 	<production>
 		<cache>
-			<frontend>
-				<name>Page</name>
-				<options>
-					<lilfetime>3600<!-- 1 hour --></lilfetime>
-					<automatic_serialization>true</automatic_serialization>
-					<caching>false</caching>				
-					<logging>true</logging>
-					<write_control>true</write_control>
-					<automatic_cleaning_factor>true</automatic_cleaning_factor>
-					<!-- This regular expresion is used to set ca -->
-					<regexps></regexps>				
-				</options>	
-			</frontend>
-                        <!--
-			<backend>
-				<name>Memcached</name>
-				<options>
-					<servers>
-						<host>localhost</host>
-						<port>11211</port>
-						<persistent>true</persistent>
-						<weight>1</weight>
-						<timeout>5</timeout>
-						<retry_interval>15</retry_interval>
-						<status>true</status>
-						<failure_callback></failure_callback>
-					</servers>
-					<compression>false</compression>
-					<compatability>false</compatability>
-				</options>
-			</backend>-->
-                        <backend>
-				<name>File</name>
-				<options>
-					<cache_dir>/tmp/</cache_dir>
-					<file_name_prefix>ifphp_cache_</file_name_prefix>
-				</options>
-			</backend>
+                    <frontend>
+                            <name>Core</name>
+                            <options>
+                                    <lifetime>3600</lifetime>
+                                    <automatic_serialization>true</automatic_serialization>
+                                    <caching>true</caching>
+                            </options>
+                    </frontend>
+                    <backend>
+                            <name>File</name>
+                            <options>
+                                    <cache_dir>/tmp/</cache_dir>
+                                    <file_name_prefix>ifphp_cache_</file_name_prefix>
+                            </options>
+                    </backend>
 		</cache>
+                <pageCache>
+                    <frontend>
+                        <name>Page</name>
+                        <options>
+                                <lifetime>3600</lifetime>
+                                <caching>true</caching>
+                                <debug_header>true</debug_header>
+                        </options>
+                    </frontend>
+                    <backend>
+                        <name>File</name>
+                        <options>
+                                <cache_dir>/tmp/</cache_dir>
+                                <file_name_prefix>ifphp_page_cache_</file_name_prefix>
+                        </options>
+                    </backend>
+                </pageCache>
 	</production>
 	<staging extends="production"></staging>
 	<testing extends="production"></testing>

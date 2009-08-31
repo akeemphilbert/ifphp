@@ -84,13 +84,13 @@ class AbstractModel extends Zend_Db_Table_Abstract{
 	 * @return Zend_Cache
 	 */
 	private function cache(){
-		$config  = new Zend_Config_Xml(APPLICATION_PATH.'/configs/cache.xml',APPLICATION_ENV );
+		$config  = new Zend_Config_Xml(APPLICATION_PATH.'/configs/cache.xml',APPLICATION_ENV );//TODO this should be parsed once in the bootstrap
     	
         $cache = Zend_Cache::factory(
         	$config->cache->frontend->name,        	
         	$config->cache->backend->name,
-        	$config->cache->frontend->toArray(),        	
-        	$config->cache->backend->toArray()
+        	$config->cache->frontend->options->toArray(),
+        	$config->cache->backend->options->toArray()
         );
         return $cache;
 	}
@@ -107,10 +107,8 @@ class AbstractModel extends Zend_Db_Table_Abstract{
 	private function saveCache($result, $cacheName)
 	{
 		$config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV );
-		if($config->cache->enabled){		
-			$cache = $this->cache();
-			$cache->save($result, $cacheName);
-		}
+		$cache = $this->cache();
+		$cache->save($result, $cacheName);
 	}
 	
 	/**
@@ -124,9 +122,7 @@ class AbstractModel extends Zend_Db_Table_Abstract{
 		$cache = $this->cache();
 		$config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV );
 				
-		if(
-			$config->cache->enabled &&
-			$data = $cache->load($cacheName))
+		if($data = $cache->load($cacheName))
 		{
 			Zend_Registry::getInstance()->logger->info($cacheName . ': loaded from cache');
 			return $data;

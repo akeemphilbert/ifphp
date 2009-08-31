@@ -125,6 +125,6 @@ class Ifphp_Tool_Framework_Provider_Feed extends Zend_Tool_Framework_Provider_Ab
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini',APPLICATION_ENV);
         Zend_Registry::getInstance()->config = $config;
         $application = new Zend_Application(APPLICATION_ENV,$config);
-        $application->bootstrap()->bootstrap(array('db','search'));
+        $application->bootstrap()->bootstrap(array('db'));
     }
 }

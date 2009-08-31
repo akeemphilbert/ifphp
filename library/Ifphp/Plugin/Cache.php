@@ -22,7 +22,19 @@ class Ifphp_Plugin_Cache extends Ifphp_Controller_Plugin_Abstract
     */
     public function addPost($post,$feed)
     {
-            $posts = new Posts();
-            $posts->clear(); // this clears the all the cache
+        $posts = new Posts();
+        $posts->clear(); // this clears the all the cache
+    }
+
+    /**
+     *
+     * @param Feed $feed 
+     */
+    public function addFeed(Feed $feed)
+    {
+       $posts = new Posts();
+       $posts->clear();
+       $feeds = new Feeds();
+       $feeds->clear();
     }
 }

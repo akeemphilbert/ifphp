@@ -27,6 +27,7 @@
 	</tbody>
 </table>
 
+<?= $this->headTitle($this->translate('Weblogs'));?>
 <?php foreach ($this->categories as $category):?>
 <h4><?=$category->title;?></h4>
 <div class="hr dotted"><hr /></div>
@@ -48,7 +49,7 @@
                                 <td><div class="rss">
                                 <a href="<?=$feed->url;?>" title="">RSS</a>
                             </div></td>
-				<td><a href="<?=$feed->siteUrl;?>"><?= $feed->siteUrl?></a></td>
+				<td><a href="http://<?=$feed->siteUrl;?>"><?= $feed->siteUrl?></a></td>
 				<td><?= $this->date($feed->modified)?></td>
 			</tr>
 		<?php endforeach;?>

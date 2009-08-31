@@ -171,7 +171,6 @@ class FeedController extends Zend_Controller_Action
     /**
      * Activate feed
      * 
-     * 
      */
     public function activateAction()
     {
@@ -181,6 +180,8 @@ class FeedController extends Zend_Controller_Action
         $feed = $feeds->getByToken($token);
         $feed->statusId = Status::ACTIVE;
         $feed->save();
+
+        Ifphp_Controller_Front::getInstance()->getPluginBroker()->addFeed($feed);
 
         $this->_redirect('/feed/view/'.$feed->slug);
     }
@@ -209,7 +210,7 @@ class FeedController extends Zend_Controller_Action
         $this->view->feed->views++;
         $this->view->feed->save();
     	//get posts
-        $limit = 5;
+        $limit = 10;
         $page = $this->getRequest()->getParam('page') ? $this->getRequest()->getParam('page') : 1;
     	$posts = new Posts();
     	$this->view->posts = $posts->getByFeedId($this->view->feed->id,$page,$limit);

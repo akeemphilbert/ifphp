@@ -1,19 +1,7 @@
-
-  <h1>An error occurred</h1>
-  <h2><?= $this->message ?></h2>
-
-  <?php if ('production' != APPLICATION_ENV ): ?>
-
-  <h3>Exception information:</h3>
-  <p>
-      <b>Message:</b> <?= $this->exception->getMessage() ?>
-  </p>
-
-  <h3>Stack trace:</h3>
-  <pre><?= $this->exception->getTraceAsString() ?>
-  </pre>
-
-  <h3>Request Parameters:</h3>
-  <pre><? var_dump($this->request->getParams()) ?>
-  </pre>
-  <? endif ?>
+<!--404 CONTENT-->
+<div class="content-body">
+<img src="<?=$this->baseUrl();?>/imgs/layout/global/404.png" alt="ifphp 404" class="notfound404" />
+<div class="hr"><hr /></div>
+<p>The page you are looking for either has been moved or no longer exists.</p>
+<div class="hr"><hr /></div>
+</div>

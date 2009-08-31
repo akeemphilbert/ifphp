@@ -14,7 +14,7 @@
 <?php $this->jQuery()->addOnLoad('Main.init();');?>
 
 <!-- RSS FEED-->
-<?php $this->headLink()->appendAlternate($this->baseUrl().'?format=rss', 'application/rss+xml', 'IfPHP RSS FEED'); ?>
+<?php $this->headLink()->appendAlternate($this->baseUrl().'?format=rss', 'application/rss+xml', 'IFPHP RSS FEED'); ?>
 
 <!-- META DATA -->
 <?= $this->headMeta()?>
@@ -24,7 +24,7 @@
 <body>
 <div class="container">
 <div class="header">
-  <h1><a href="/" title="">ifphp</a></h1>
+  <h1><a href="/" title="IFPHP">ifphp</a></h1>
   <div class="search">
 		<h2 class="alt"><?= $this->translate('PHP News Aggregator')?> | <?= $this->translate('Aggregating') ?> <?=$this->feedCount() ?> <?= $this->translate('feeds')?></h2>
       <div id="search_box">
@@ -33,6 +33,7 @@
   </div>
   
   <?= $this->partial('/partials/html/navigation.phtml')?>
+</div>
   <hr class="space" />
   <div class="content colborder">
 <?= $this->layout()->content ?>
@@ -50,7 +51,6 @@
     <hr />
     <?= $this->action('popular','feed') ?>    
   </div>        
-</div>
 </div>
 <?= $this->partial('/partials/html/footer.phtml') ?>
 <?= $this->jQuery(); ?>
