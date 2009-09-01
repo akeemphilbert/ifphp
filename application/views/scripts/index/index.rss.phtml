@@ -1,6 +1,7 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>';?>
 <rss version="2.0">
     <channel>
-        <title>Most Recent Posts</title>
+        <title>IFPHP Recent Posts Feed</title>
         <description>Recently aggregated posts</description>
         <language>en-Us</language>
         <pubDate></pubDate>
@@ -8,7 +9,7 @@
          <item>
             <title><?=$post->title;?></title>
             <link><?=$post->link;?></link>
-            <description><?=$post->description;?></description>
+            <description><![CDATA[<?=$post->description;?>]]></description>
             <pubDate><?=$this->date($post->publishDate);?></pubDate>
          </item>
         <?php endforeach;?>

@@ -111,6 +111,8 @@ class FeedController extends Zend_Controller_Action
                 $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
                 $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
                 $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
+                $defaultFilterChain->addFilter(new Zend_Filter_HtmlEntities(array('quotestyle'=>ENT_QUOTES,'charset'=>'UTF-8')));
+                $defaultFilterChain->addFilter(new Ifphp_Filter_HtmlEntityNames());
                 
                 $feeds = new Feeds();
                 $feed = $feeds->createRow();
@@ -363,15 +365,17 @@ class FeedController extends Zend_Controller_Action
         $tdate = $feedSource->current()->getDateModified();
         $tdate = new Zend_Date($tdate);
 
+        $defaultFilterChain = new Zend_Filter();
+        $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
+        $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
+        $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
+        $defaultFilterChain->addFilter(new Zend_Filter_HtmlEntities(array('quotestyle'=>ENT_QUOTES,'charset'=>'UTF-8')));
+        $defaultFilterChain->addFilter(new Ifphp_Filter_HtmlEntityNames());
+
         while ($feedSource->valid() && $tdate->toValue() > $feed->lastPing && !$posts->getByLink($feedSource->current()->getPermaLink()))
         {
             $tdate = $feedSource->current()->getDateModified();
             $tdate = new Zend_Date($tdate);
-
-            $defaultFilterChain = new Zend_Filter();
-            $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
-            $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
-            $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
 
             $post = $posts->createRow();
             $post->title = $defaultFilterChain->filter($feedSource->current()->getTitle());
@@ -386,6 +390,51 @@ class FeedController extends Zend_Controller_Action
 
          $feed->lastPing = time();
          $feed->save();
+    }
+
+    /**
+     * @todo Remove when done
+     */
+    public function fixAction()
+    {
+        $posts = new Posts();
+        $tposts = $posts->fetchAll($posts->select()->where('id > 0'));
+
+        $defaultFilterChain = new Zend_Filter();
+        $defaultFilterChain->addFilter(new Ifphp_Filter_XSSClean());
+        $defaultFilterChain->addFilter(new Zend_Filter_StringTrim());
+        $defaultFilterChain->addFilter(new Zend_Filter_StripTags());
+        $defaultFilterChain->addFilter(new Zend_Filter_HtmlEntities(array('quotestyle'=>ENT_QUOTES,'charset'=>'UTF-8')));
+        $defaultFilterChain->addFilter(new Ifphp_Filter_HtmlEntityNames());
+        
+        foreach ($tposts as $post)
+        {
+            $post->title = $defaultFilterChain->filter($post->title);
+            $post->description = $defaultFilterChain->filter($post->description);
+            $post->feedId = $defaultFilterChain->filter($post->feedId);
+            $post->link = $defaultFilterChain->filter($post->link);
+            $post->publishDate = $post->publishDate;
+//            Zend_Debug::dump($post->description);
+            $post->save();
+        }
+
+        $feeds = new Feeds();
+        $tfeeds = $feeds->fetchAll($feeds->select()->where('id > 0'));
+
+        $inflector = new Zend_Filter_Inflector(':title');
+                $inflector->setRules(array(
+                    ':title' => array('Word_SeparatorToDash','StringToLower','HtmlEntities')
+                ));
+
+        foreach ($tfeeds as $feed)
+        {
+            $feed->title = $defaultFilterChain->filter($feed->title);
+            $feed->description = $defaultFilterChain->filter($feed->description);
+            $feed->slug = $inflector->filter(array('title'=>$feed->title));
+            $feed->save();
+        }
+
+        die();
     }
 
     /**

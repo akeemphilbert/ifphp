@@ -7,7 +7,7 @@
                             <options>
                                     <lifetime>3600</lifetime>
                                     <automatic_serialization>true</automatic_serialization>
-                                    <caching>true</caching>
+                                    <caching>false</caching>
                             </options>
                     </frontend>
                     <backend>
@@ -23,7 +23,7 @@
                         <name>Page</name>
                         <options>
                                 <lifetime>3600</lifetime>
-                                <caching>true</caching>
+                                <caching>false</caching>
                                 <debug_header>true</debug_header>
                         </options>
                     </frontend>
